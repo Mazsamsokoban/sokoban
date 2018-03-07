@@ -3,7 +3,7 @@ Maazsam csapat:
 * Zsófi
 * Ákos
 * Ádám
-* Milán
+* Sajt
 * Marci
 
 # Git
