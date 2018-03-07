@@ -1,5 +1,5 @@
 ﻿# Killer Sokoban
-Mazsam csapat:
+Maazsam csapat:
 * Zsófi
 * Ákos
 * Ádám
