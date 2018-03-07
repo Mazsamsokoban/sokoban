@@ -1,9 +1,9 @@
 ﻿# Killer Sokoban
 Maazsam csapat:
 * Zsófi
-* Ákos
+* fuhrer
 * Ádám
-* Sajt
+* sajt
 * Marci
 
 # Git
