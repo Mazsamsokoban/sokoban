@@ -1,4 +1,4 @@
-# Killer Sokoban
+﻿# Killer Sokoban
 Mazsam csapat:
 * Zsófi
 * Ákos
@@ -32,3 +32,5 @@ Run Git and included Unix tools from the Windows Command Prompt opciót válassz
 ## Feltöltés az online repositoryba:
 * git pull origin master - a mások által végrehajtott változtatások letöltése
 * git push origin master - a mi változtatásaink életbe léptetésének kérelme
+
+2018.03.07 GitHub demo
