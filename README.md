@@ -3,7 +3,7 @@ Maazsam csapat:
 * Zsófi
 * fuhrer
 * Ádám
-* sajt
+* qqq <#hacked>
 * Marci
 
 # Git
