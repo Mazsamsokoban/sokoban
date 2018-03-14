@@ -1,9 +1,9 @@
 ﻿# Killer Sokoban
 Maazsam csapat:
 * Zsófi
-* Ákos
+* fuhrer
 * Ádám
-* Milán
+* qqq <#hacked>
 * Marci
 
 # Git
