@@ -7,8 +7,10 @@ public class SwitchableHole extends Hole {
 	}
 	
 	public boolean Accept(Box b) {
+		return false;
 	}
 	
 	public boolean Accept(Worker w) {
+		return false;
 	}
 }
