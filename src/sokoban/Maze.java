@@ -20,13 +20,32 @@ public class Maze {
 		System.out.print("init()");
 		
 		Worker w = new Worker();
-		Field f = new Field();
-		f.Accept(w);
+		Field f0 = new Field();
+		f0.Accept(w);
 		SwitchableHole sh = new SwitchableHole();
+		Field f1 = new Field();
+		Field f5 = new Field();
+		Box box0 = new Box();
+		f5.Accept(box0);
+		Field f2 = new Field();
 		Box box1 = new Box();
+		f2.Accept(box1);
+		Field f6 = new Field();
 		Switch sw = new Switch();
 		Hole h = new Hole();
-		BoxField bf = new BoxField();
+		Field f3 = new Field();
+		Box box2 = new Box();
+		f3.Accept(box2);
+		Field f4 = new Field();
+		Worker w2 = new Worker();
+		f4.Accept(w2);
+		Field f7 = new Field();
+		Obstacle obs = new Obstacle();
+		
+		
+		
+	
+		
 		
 		
 		
