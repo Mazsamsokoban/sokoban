@@ -2,10 +2,12 @@ package sokoban;
 
 public class Hole extends FieldBase {
 	public boolean Accept(Box b) {
-		return false;
+		b.Delete();
+		return true;
 	}
 	
 	public boolean Accept(Worker w) {
-		return false;
+		w.Delete();
+		return true;
 	}
 }

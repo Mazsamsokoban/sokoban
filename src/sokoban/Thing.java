@@ -2,15 +2,25 @@ package sokoban;
 
 public abstract class Thing {
 	private Direction d;
-	public void CollideWith(Thing t) {
+	protected Field field;
+	
+	public abstract void CollideWith(Thing t);
+	
+	public abstract void HitBy(Box b, Direction dir);
+	
+	public abstract void HitBy(Worker w, Direction dir);
+	
+	public abstract void Delete();
+	
+	abstract Worker Notify();
+	
+	Direction getDirection()
+	{
+		return d;
 	}
 	
-	public void HitBy(Box b, Direction dir) {
-	}
-	
-	public void HitBy(Worker w, Direction dir) {
-	}
-	
-	public void Delete() {
+	Field getField()
+	{
+		return field;
 	}
 }

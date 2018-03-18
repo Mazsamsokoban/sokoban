@@ -1,23 +1,20 @@
 package sokoban;
+import java.util.HashMap;
 
 
 public abstract class FieldBase {
-	private Thing things;
-	private FieldBase neighbors;
-	private FieldBase neighbours;
-	public boolean Accept(Box b) {
-		return false;
+	protected Thing things;
+	private HashMap<Direction, FieldBase> neighbours = new HashMap<Direction, FieldBase>();
+	//private FieldBase neighbours;
+	public abstract boolean Accept(Box b);
 	
-	}
-	
-	public boolean Accept(Worker w) {
-		return false;
-	}
+	public abstract boolean Accept(Worker w);
 	
 	public FieldBase GetNeighbor(Direction d) {
-		return new Field();
+		return neighbours.get(d);
 	}
 	
 	public void SetNeighbor(Direction d, FieldBase f) {
-	}
+		neighbours.put(d, f);
+	}	
 }
