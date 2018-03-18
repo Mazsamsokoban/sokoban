@@ -3,13 +3,25 @@ package sokoban;
 
 public class Field extends FieldBase  {
 	public boolean Accept(Box b) {
-		return false;
+		if (things != null)
+		{
+			b.CollideWith(things);
+			return Accept(b);
+		}
+		return true;
 	}
 	
 	public boolean Accept(Worker w) {
-		return false;
+		if (things != null)
+		{
+			w.CollideWith(things);
+			return Accept(w);
+		}
+		return true;
 	}
 	
-	public void Remove() {
+	public void Remove()
+	{
+		super.things = null;
 	}
 }
