@@ -16,11 +16,17 @@ public abstract class Thing {
 	
 	Direction getDirection()
 	{
+		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		
+		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		return d;
 	}
 	
 	Field getField()
 	{
+		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		
+		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		return field;
 	}
 }
