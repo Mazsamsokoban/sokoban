@@ -16,8 +16,10 @@ package sokoban;
 
 public class Obstacle extends FieldBase {
 	public boolean Accept(Box b) {
+		return false;
 	}
 	
 	public boolean Accept(Worker w) {
+		return false;
 	}
 }

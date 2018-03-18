@@ -4,6 +4,7 @@ package sokoban;
 public class Worker extends Thing implements Steppable {
 	private long points;
 	public boolean Move(Direction d) {
+		return false;
 	}
 	
 	public void AddPoints(long p) {
