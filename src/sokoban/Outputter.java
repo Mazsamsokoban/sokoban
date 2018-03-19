@@ -11,9 +11,10 @@ public class Outputter extends  HashMap<Object, String>{
 	
 	public void makeCall(Object obj) {
 		System.out.println("");
-		System.out.print("--> ");
+		System.out.print("> ");
 		for(int i = 0; i < tab; ++i)
 			System.out.print("\t");
+		System.out.print("--> ");
 		if(obj == null)
 			System.out.print("");
 		else
@@ -28,9 +29,10 @@ public class Outputter extends  HashMap<Object, String>{
 	public void returnFromFunc(Object obj) {
 		tab--;
 		System.out.println("");
-		System.out.print("<-- ");
+		System.out.print("< ");
 		for(int i = 0; i < tab; ++i)
 			System.out.print("\t");
+		System.out.print("<-- ");
 		if(obj == null)
 			System.out.print("");
 		else

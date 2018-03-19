@@ -1,5 +1,6 @@
 package sokoban;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Maze {
@@ -10,6 +11,9 @@ public class Maze {
 	public Maze() {
 		Game.op.makeCall(null);
 		System.out.print("Maze()");
+		fields = new ArrayList<FieldBase>();
+		boxes = new ArrayList<Box>();
+		workers = new ArrayList<Worker>();
 		init();
 		Game.op.returnFromFunc(null);
 		System.out.print("Maze()");
@@ -28,12 +32,28 @@ public class Maze {
 		Field f6 = new Field();
 		Field f7 = new Field();
 		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		fields.add(f4);
+		fields.add(f5);
+		fields.add(f6);
+		fields.add(f7);
+		
 		Worker w = new Worker();
 		Worker w2 = new Worker();
-
+		
+		workers.add(w);
+		workers.add(w2);
+		
 		Box box0 = new Box();
 		Box box1 = new Box();
 		Box box2 = new Box();
+		
+		boxes.add(box0);
+		boxes.add(box1);
+		boxes.add(box2);
 
 		Switch sw = new Switch();
 		
@@ -44,6 +64,13 @@ public class Maze {
 		BoxField bfield = new BoxField();
 		
 		Obstacle obs = new Obstacle();
+		
+		fields.add(sw);
+		fields.add(sh);
+		fields.add(hole);
+		fields.add(bfield);
+		fields.add(obs);
+		
 		
 		Game.op.put(f0, "f0");
 		Game.op.put(f1, "f1");
@@ -81,8 +108,20 @@ public class Maze {
 		f3.SetNeighbor(Direction.Down, bfield);		
 
 		f4.SetNeighbor(Direction.Down, f7);
-
+		
+		f6.SetNeighbor(Direction.Right, hole);
+		
 		f7.SetNeighbor(Direction.Right, obs);
+		
+		sh.SetNeighbor(Direction.Right, f5);
+		
+		f5.SetNeighbor(Direction.Right, f6);
+		
+		hole.SetNeighbor(Direction.Right,bfield);
+		
+		bfield.SetNeighbor(Direction.Right, f7);
+		
+		
 
 		w.field = f0;
 		f0.things = w;
