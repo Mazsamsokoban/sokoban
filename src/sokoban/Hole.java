@@ -9,6 +9,7 @@ public class Hole extends FieldBase {
 		System.out.print("Hole()");
 	}
 	
+	//fogadja a rá érkezõ dobozt, azaz ledobja
 	public boolean Accept(Box b) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
 		b.Delete();
@@ -17,6 +18,7 @@ public class Hole extends FieldBase {
 		return true;
 	}
 	
+	//fogadja a rá érkezõ munkást, azaz ledobja
 	public boolean Accept(Worker w) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		w.Delete();

@@ -2,7 +2,18 @@ package sokoban;
 
 
 public class BoxField extends Field {
+	//Debug
+	boolean debug = true;
+	public void ChangeDebug()
+	{
+		debug = !debug;
+	}
+	//Debug
+	
+	
 	private Worker owner;
+	
+	
 	
 	public BoxField() {
 		Game.op.makeCall(null);
@@ -11,20 +22,23 @@ public class BoxField extends Field {
 		Game.op.returnFromFunc(null);
 		System.out.print("BoxField()");
 	}
+	
+	//beállítja a betolóját
 	public void SetOwner(Worker w) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		owner = w;
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		
-		//SetColor(w.color);
+		
 	}
 	
+	//dobozt fogad, és pontot ad, illetve jelez a tólókon keresztül
 	public boolean Accept(Box b) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
 		
-		if (things != null)
+		if (thing != null)
 		{
-			b.CollideWith(things);
+			b.CollideWith(thing);
 			return Accept(b);
 		}
 		
@@ -48,6 +62,7 @@ public class BoxField extends Field {
 		return true;
 	}
 	
+	//munkást fogad, és elhelyezi a mezõn, ha lehet
 	public boolean Accept(Worker w) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		
@@ -55,15 +70,17 @@ public class BoxField extends Field {
 		return super.Accept(w);
 	}
 	
+	//leveszi a mezõn lévõ boxot, és ha olyan tolta le, aki betolta, akkor pontot von le
 	@Override
 	public void Remove()
 	{
-		// ???
-		/**
-		 * ha a box elhagyja a boxfieldet, amit nem tudunk mert csak Thing-kent tudjuk mi van rajtunk, akkor pls mit tegyek
-		 */
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		
+		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		Worker pusher = ((Box)thing).pusher;
+		if(pusher == this.owner)
+			pusher.AddPoints(-1);
+		
+		thing = null;
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 	}
 }

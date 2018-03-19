@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+//tesztelõ osztály a viselkedések bemutatására
 public class Tester {
 	Outputter op;
 	Game game;
@@ -16,24 +17,44 @@ public class Tester {
 	Field f5;
 	Field f6;
 	Field f7;
+	Field f8;
+	Field f9;
+	Field f10;
+	Field f11;
+	Field f12;
+	Field f13;
+	Field f14;
+	Field f15;
+	Field f16;
+	Field bfield1;
 	Worker w;
+	Worker w1;
 	Worker w2;
 	Timer t;
 	Switch sw;
 	SwitchableHole sh;
-	Hole hole;
+	Hole hole1;
+	Hole hole2;
 	BoxField bfield;
 	Obstacle obs;
 	Box box0;
 	Box box1;
 	Box box2;
+	Box box3;
+	Box box4;
+	Box box5;
+	Box box6;
+	Box box7;
 	
-	
+		
 	InputStreamReader isr = new InputStreamReader(System.in);
 	BufferedReader br = new BufferedReader(isr);
 	
+	
+	//a felhasználó választása szerinti szekvencia
 	void inputHandler(int choice) throws IOException {
-		//Runtime.getRuntime().exec("cls");
+		
+		
 		switch(choice) {
 		case 1:
 			System.out.println("\nWorker Moves\n");
@@ -103,65 +124,129 @@ public class Tester {
 	}
 	
 	
+	//a menüpontok szerinti szekvenciák
+	//1
 	void executeWorkerMoves() {
+		
+		Field fi = (Field) w.field.GetNeighbor(Direction.Up);
+		fi.ChangeDebug();
+		m.init();
+		clear();
+		w.Move(Direction.Up);
+	}
+	//2
+	void executeWorkerStepsOnSwitchableHole() {
+		m.init();
+		clear();
 		w.Move(Direction.Right);
 	}
-	
-	void executeWorkerStepsOnSwitchableHole() {
-		w.Move(Direction.Down);
-	}
-	
+	//3
 	void executeTimerMakesWorkerStep() {
+		m.init();
+		clear();
 		t.Tick();
 	}
-	
+	//4
 	void executeWorkerPushesBox() {
-		System.out.println(f3.GetNeighbor(Direction.Left).Accept(box2));
-		f3.Accept(w2);
+		Field fi = (Field) w.field.GetNeighbor(Direction.Left).GetNeighbor(Direction.Left);
+		fi.ChangeDebug();
+		m.init();
+		clear();
+		w.Move(Direction.Left);
 	}
-	
+	//5
 	void executeBoxPushesBox() {
-		
+		Field fi = (Field) w.field.GetNeighbor(Direction.Down).GetNeighbor(Direction.Down).GetNeighbor(Direction.Down);
+		fi.ChangeDebug();
+		m.init();
+		clear();
+		w.Move(Direction.Down);
 	}
-	
+	//6
 	void executeBoxPushesWorker() {
-		
+		Field fi = (Field) w1.field.GetNeighbor(Direction.Down).GetNeighbor(Direction.Down).GetNeighbor(Direction.Down);
+		fi.ChangeDebug();
+		m.init();
+		clear();
+		w1.Move(Direction.Down);
 	}
-	
+	//7
 	void executeSwitchChanges() {
-		
+		m.init();
+		clear();
+		sw.Accept(box3);
 	}
-	
+	//8
 	void executeSwitchableHoleSwitches() {
-		
+		m.init();
+		clear();
+		sw.Change();
 	}
-	
+	//9
 	void executeBoxFallsIntoHole() {
-		
+		m.init();
+		clear();
+		w1.Move(Direction.Right);
 	}
-	
+	//10
 	void executeWorkerStepsIntoHole() {
-		
+		m.init();
+		clear();
+		w1.Move(Direction.Left);
 	}
-	
-	void executeWorkerStepsintoHole() {
-		
-	}
-	
+	//11
 	void executeBoxReachesBoxField() {
-		
+		m.init();
+		executeBoxLeavesBoxField();
+		w2.field.Remove();
+		box6.d = Direction.Left;
+		clear();
+		bfield.Accept(box6);
 	}
 	
+	//12
 	void executeBoxLeavesBoxField() {
-		
+		m.init();
+		clear();
+		w2.Move(Direction.Right);
 	}
 	
 	void executeBoxPumpsIntoObstacle() {
-		
+		m.init();
+		clear();
+		w2.Move(Direction.Left);
 	}
 	
 	void executeEndGame() throws IOException {
+		m.init();
+		clear();
 		m.CheckEndOfGame();
 	}
+	
+	//univerzális képernyõtörlés :D
+	void clear() {
+		for(int i = 0; i< 1000; ++i)
+			System.out.println("");
+	}
+	
+	//paraméterként megadott eldöntendõ kérdés kiírása
+	static boolean Kerdes(String szoveg)
+	{
+		System.out.println("\n" + szoveg + "I/N");
+		String choice = null;
+		try {
+			choice = Game.op.br.readLine();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(choice.charAt(0) == 'I' || choice.charAt(0) == 'i') 
+		{			
+			return true;
+		}
+		else
+			return false;
+	}
+		
 	
 }

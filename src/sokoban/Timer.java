@@ -11,6 +11,7 @@ public class Timer extends ArrayList<Steppable> {
 		Game.op.returnFromFunc(null);
 		System.out.print("Timer()");
 	}
+	//lépteti a Steppable-eket
 	public void Tick() {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		for(Steppable s : this) {
@@ -19,6 +20,7 @@ public class Timer extends ArrayList<Steppable> {
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 	}
 	
+	//elindul
 	public void Start() {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		

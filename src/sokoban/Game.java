@@ -20,6 +20,8 @@ public class Game {
 		Game.op.returnFromFunc(null);
 		System.out.print("Game()");
 	}
+	
+	//elkezdi a játékot, létrehozza a raktárépületet
 	public void startGame() {
 		op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName()+ "()");
 		currentLevel = new Maze();
@@ -31,12 +33,13 @@ public class Game {
 		op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName()+ "()");
 	}
 	
+	//befejezi a játékot, ha a feltételek teljesülnek
 	public void endGame() {
 		op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName()+ "()");
 		op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName()+ "()");
 	}
 	
-	
+	//menürendszer kiírása és választás kezelése
 	public static void main(String[] args) throws IOException {
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
