@@ -1,12 +1,17 @@
 package sokoban;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Maze {
+	public Tester tester;
+	
 	private List<FieldBase> fields;
 	private List<Box> boxes;
 	private List<Worker> workers;
+	private Timer t;
+	private Game game;
 	
 	public Maze() {
 		Game.op.makeCall(null);
@@ -14,7 +19,6 @@ public class Maze {
 		fields = new ArrayList<FieldBase>();
 		boxes = new ArrayList<Box>();
 		workers = new ArrayList<Worker>();
-		init();
 		Game.op.returnFromFunc(null);
 		System.out.print("Maze()");
 	}
@@ -22,6 +26,8 @@ public class Maze {
 	public void init() {
 		Game.op.makeCall(null);
 		System.out.print("init()");
+		
+		t = new Timer();
 		
 		Field f0 = new Field();
 		Field f1 = new Field();
@@ -43,13 +49,22 @@ public class Maze {
 		
 		Worker w = new Worker();
 		Worker w2 = new Worker();
+		w.setField(f0);
+		w2.setField(f4);
 		
 		workers.add(w);
 		workers.add(w2);
 		
+		t.add(w);
+		t.add(w2);
+		
 		Box box0 = new Box();
 		Box box1 = new Box();
 		Box box2 = new Box();
+		
+		box0.setField(f5);
+		box1.setField(f2);
+		box2.setField(f3);
 		
 		boxes.add(box0);
 		boxes.add(box1);
@@ -71,7 +86,7 @@ public class Maze {
 		fields.add(bfield);
 		fields.add(obs);
 		
-		
+		Game.op.put(t, "t");
 		Game.op.put(f0, "f0");
 		Game.op.put(f1, "f1");
 		Game.op.put(f2, "f2");
@@ -91,6 +106,27 @@ public class Maze {
 		Game.op.put(bfield, "bfield");
 		Game.op.put(obs, "obs");
 		
+		Game.op.addPair("t", t);
+		Game.op.addPair("f0", f0);
+		Game.op.addPair("f1", f1);
+		Game.op.addPair("f2", f2);
+		Game.op.addPair("f3", f3);
+		Game.op.addPair("f4", f4);
+		Game.op.addPair("f5", f5);
+		Game.op.addPair("f6", f6);
+		Game.op.addPair("f7", f7);
+		Game.op.addPair("w", w);
+		Game.op.addPair("w2", w2);
+		Game.op.addPair("box0", box0);
+		Game.op.addPair("box1", box1);
+		Game.op.addPair("box2", box2);
+		Game.op.addPair("sw", sw);
+		Game.op.addPair("sh", sh);
+		Game.op.addPair("hole", hole);
+		Game.op.addPair("bfield", bfield);
+		Game.op.addPair("obs", obs);
+		
+		
 		
 		f0.SetNeighbor(Direction.Right, f1);
 		f0.SetNeighbor(Direction.Down, sh);		
@@ -105,7 +141,8 @@ public class Maze {
 		sw.SetNeighbor(Direction.Down, hole);
 
 		f3.SetNeighbor(Direction.Right, f4);
-		f3.SetNeighbor(Direction.Down, bfield);		
+		f3.SetNeighbor(Direction.Down, bfield);
+		
 
 		f4.SetNeighbor(Direction.Down, f7);
 		
@@ -138,43 +175,78 @@ public class Maze {
 		box0.field = f5;
 		f5.things = box0;
 		
-		
-		
-	
-		
-		
-		
-		
+		tester.t = this.t;
+		tester.f0 = f0;
+		tester.f1 = f1;
+		tester.f2 = f2;
+		tester.f3= f3;
+		tester.f4 = f4;
+		tester.f5 = f5;
+		tester.f6 = f6;
+		tester.f7 = f7;
+		tester.w = w;
+		tester.w2 = w2;
+		tester.box0 = box0;
+		tester.box1 = box1;
+		tester.box1 = box1;
+		tester.sh = sh;
+		tester.sw = sw;
+		tester.obs = obs;
+		tester.bfield = bfield;
 		Game.op.returnFromFunc(null);
 		System.out.print("init()");
+		
+		
 	}
 	
-	public boolean CheckEndOfGame()
+	public boolean CheckEndOfGame() throws IOException
 	{
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		if (CheckBoxes())
+		
+		/*if (CheckBoxes())
 			return true;
 		else if (workers.size() <= 1)
 			return true;
+		*/
+		System.out.println("\nMaradt még legalább 2 munkás ? I/N");
+		String choice = Game.op.br.readLine();
+		if(choice.charAt(0) == 'N' || choice.charAt(0) == 'n') {
+			game.endGame();
+			Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+			return true;
+		}
 		
+		CheckBoxes();
+		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		return false;
 		
 	}
 	
-	public boolean CheckBoxes()
+	
+	public void setGame(Game g) {
+		game = g;
+	}
+	
+	public boolean CheckBoxes() throws IOException
 	{
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		System.out.println("\nHelyükre kerültek a dobozok ? I/N");
+		String choice = Game.op.br.readLine();
+		if(choice.charAt(0) == 'I' || choice.charAt(0) == 'i') {
+			game.endGame();
+			Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+			return true;
+		}
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		for (Box b : boxes)
+		/*for (Box b : boxes)
 		{
 			if (!b.onBoxField) {
 				return false;
 			}
-		}
+		}*/
 		
-		return true;		
+		return false;		
 	}
 	
 }

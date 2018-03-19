@@ -1,7 +1,9 @@
 package sokoban;
 
+import java.util.ArrayList;
 
-public class Timer {
+public class Timer extends ArrayList<Steppable> {
+	
 	public Timer() {
 		Game.op.makeCall(null);
 		System.out.print("Timer()");
@@ -11,7 +13,9 @@ public class Timer {
 	}
 	public void Tick() {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		
+		for(Steppable s : this) {
+			s.Step();
+		}
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 	}
 	

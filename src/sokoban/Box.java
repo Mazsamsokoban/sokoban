@@ -31,7 +31,6 @@ public class Box extends Thing {
 	
 	public void HitBy(Worker w, Direction dir) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ", dir)");
-		
 		if (getField().GetNeighbor(dir).Accept(this))
 		{
 			getField().Remove();

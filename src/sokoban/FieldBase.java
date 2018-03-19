@@ -20,7 +20,7 @@ public abstract class FieldBase {
         case Right: n = Direction.Left; break;
         case Left: n = Direction.Right; break;
         }
-        if (!f.neighbours.containsKey(n))
+        if (f.GetNeighbor(n) == null)
             f.SetNeighbor(n, this);
         Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(d, " + Game.op.get(f) + ")");
     }

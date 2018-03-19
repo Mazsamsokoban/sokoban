@@ -13,7 +13,8 @@ public class Worker extends Thing implements Steppable {
 	}
 	public boolean Move(Direction d) {
 		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(d)");
-		
+		FieldBase f1 = field.GetNeighbor(d);
+		f1.Accept(this);
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(d)");
 		return false;
 	}

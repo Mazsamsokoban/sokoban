@@ -29,4 +29,10 @@ public abstract class Thing {
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		return field;
 	}
+	
+	void setField(Field f) {
+		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		field = f;
+		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+	}
 }

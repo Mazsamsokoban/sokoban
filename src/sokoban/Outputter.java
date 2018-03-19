@@ -1,12 +1,18 @@
 package sokoban;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public class Outputter extends  HashMap<Object, String>{
+	HashMap<String, Object> objects;
 	private int tab;
+	InputStreamReader isr = new InputStreamReader(System.in);
+	BufferedReader br = new BufferedReader(isr);
 	
 	public Outputter() {
 		tab = 0;
+		objects = new HashMap<String, Object>();
 	}
 	
 	public void makeCall(Object obj) {
@@ -24,6 +30,14 @@ public class Outputter extends  HashMap<Object, String>{
 	
 	public String getName(Object obj) {
 		return this.getName(obj);
+	}
+	
+	public Object getObject(String name) {
+		return objects.get(name);
+	}
+	
+	public void addPair(String name, Object obj) {
+		objects.put(name, obj);
 	}
 	
 	public void returnFromFunc(Object obj) {
