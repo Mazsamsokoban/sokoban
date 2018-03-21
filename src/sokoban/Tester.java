@@ -127,10 +127,9 @@ public class Tester {
 	//a menüpontok szerinti szekvenciák
 	//1
 	void executeWorkerMoves() {
-		
+		m.init();
 		Field fi = (Field) w.field.GetNeighbor(Direction.Up);
 		fi.ChangeDebug();
-		m.init();
 		clear();
 		w.Move(Direction.Up);
 	}
@@ -148,27 +147,36 @@ public class Tester {
 	}
 	//4
 	void executeWorkerPushesBox() {
+		m.init();
+		
 		Field fi = (Field) w.field.GetNeighbor(Direction.Left).GetNeighbor(Direction.Left);
 		fi.ChangeDebug();
-		m.init();
+		
 		clear();
 		w.Move(Direction.Left);
+		fi.ChangeDebug();
 	}
 	//5
 	void executeBoxPushesBox() {
+		m.init();
+		
 		Field fi = (Field) w.field.GetNeighbor(Direction.Down).GetNeighbor(Direction.Down).GetNeighbor(Direction.Down);
 		fi.ChangeDebug();
-		m.init();
+		
 		clear();
 		w.Move(Direction.Down);
+		fi.ChangeDebug();
 	}
 	//6
 	void executeBoxPushesWorker() {
+		m.init();
+		
 		Field fi = (Field) w1.field.GetNeighbor(Direction.Down).GetNeighbor(Direction.Down).GetNeighbor(Direction.Down);
 		fi.ChangeDebug();
-		m.init();
+		
 		clear();
 		w1.Move(Direction.Down);
+		fi.ChangeDebug();
 	}
 	//7
 	void executeSwitchChanges() {

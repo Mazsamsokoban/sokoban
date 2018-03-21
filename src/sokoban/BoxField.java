@@ -43,7 +43,7 @@ public class BoxField extends Field {
 		}
 		
 		Worker pusher = b.Notify();	
-		
+		/*
 		if (pusher == owner)
 		{
 			pusher.AddPoints(1);
@@ -53,7 +53,18 @@ public class BoxField extends Field {
 			pusher.AddPoints(1);
 			SetOwner(pusher);
 		}
+		*/
 		
+		boolean valasz = Tester.Kerdes("Volt már tulajdonosa?");
+		if(valasz) {
+			boolean valasz1 = Tester.Kerdes("Az eredeti tulaj tolta be?");
+			if(valasz1)
+				pusher.AddPoints(1);
+		}
+		else {
+			pusher.AddPoints(1);
+			SetOwner(pusher);
+		}
 		b.onBoxField = true;
 		
 		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
