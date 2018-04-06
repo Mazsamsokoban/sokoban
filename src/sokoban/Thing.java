@@ -1,10 +1,32 @@
 package sokoban;
 
-public abstract class Thing {
+import java.io.PrintStream;
+import java.io.Serializable;
+
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlTransient;
+
+
+@XmlTransient
+@XmlSeeAlso({Field.class, SwitchableHole.class, Switch.class})
+public abstract class Thing{
+	@XmlAttribute(name = "direction")
 	protected Direction d;
-	protected Field field;
 	
 	
+	protected FieldBase field;
+	protected float pushForce;
+	
+	@XmlAttribute(name = "name")
+	protected String name = "";
+	
+	public Thing() {
+		d = Direction.Neutral;
+	}
 	//absztrakt ütköztetõ és törlõ fgv-ek
 	public abstract void CollideWith(Thing t);
 	
@@ -16,26 +38,44 @@ public abstract class Thing {
 	
 	abstract Worker Notify();
 	
+	public abstract void printState(PrintStream w);
+	
 	
 	//menetirány visszaadása
-	Direction getDirection()
+	public Direction getDirection()
 	{
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		return d;
 	}
 	
+	public void setDirection(Direction d) {
+		this.d = d;
+	}
+	
 	//tartalmazó mezõ visszaadása
-	Field getField()
+	/*FieldBase getField()
 	{
-		//Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		
-		//Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		return field;
+	}*/
+	//tartalmazó mezõ beállítása
+	
+	public void setField(FieldBase f) {
+		field = f;
+	}
+	
+	@XmlElement
+	public FieldBase getField(){
 		return field;
 	}
-	//tartalmazó mezõ beállítása
-	void setField(Field f) {
-		field = f;
+	
+	public void setPushForce(float pf) {
+		pushForce = pf;
+	}
+	
+	public float getPushForce(){
+		return pushForce;
+	}
+	@Override
+	public String toString() {
+		return name;
 	}
 }

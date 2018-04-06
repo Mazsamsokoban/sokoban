@@ -3,250 +3,264 @@ package sokoban;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintStream;
+import java.util.ArrayList;
 
 //tesztelõ osztály a viselkedések bemutatására
 public class Tester {
 	Outputter op;
 	Game game;
 	Maze m;
-	Field f0; 
-	Field f1; 
-	Field f2; 
-	Field f3; 
-	Field f4;
-	Field f5;
-	Field f6;
-	Field f7;
-	Field f8;
-	Field f9;
-	Field f10;
-	Field f11;
-	Field f12;
-	Field f13;
-	Field f14;
-	Field f15;
-	Field f16;
-	Field bfield1;
-	Worker w;
-	Worker w1;
-	Worker w2;
-	Timer t;
-	Switch sw;
-	SwitchableHole sh;
-	Hole hole1;
-	Hole hole2;
-	BoxField bfield;
-	Obstacle obs;
-	Box box0;
-	Box box1;
-	Box box2;
-	Box box3;
-	Box box4;
-	Box box5;
-	Box box6;
-	Box box7;
+	PrintStream printer;
 	
-		
+	ArrayList<Worker> workers;
+	ArrayList<Box> boxes;
+	ArrayList<FieldBase> fields;
+	FieldBase fieldMap[][];
+	
+	FieldBase mazeImage;
 	InputStreamReader isr = new InputStreamReader(System.in);
 	BufferedReader br = new BufferedReader(isr);
 	
+	public Tester() {
+		printer = System.out;
+		workers = new ArrayList<Worker>();
+		boxes = new ArrayList<Box>();
+		fields = new ArrayList<FieldBase>();
+	} 
 	
-	//a felhasználó választása szerinti szekvencia
-	void inputHandler(int choice) throws IOException {
+	
+	public void processCommand(String command) {
+		String parts[] = command.split(" ");
+		switch (parts[0]) {
+			case "loadtest":
+				loadtestCommand(parts);
+				System.out.println("\nA betöltött tesztpálya:");
+				showmazeCommand();
+				break;
 		
-		
-		switch(choice) {
-		case 1:
-			System.out.println("\nWorker Moves\n");
-			executeWorkerMoves();
-			break;
-		case 2:
-			System.out.println("\nWorker Steps On SwitchableHole\n");
-			executeWorkerStepsOnSwitchableHole();
-			break;
-		case 3:
-			System.out.println("\nTimer Makes Workers Step\n");
-			executeTimerMakesWorkerStep();
-			break;
-		case 4:
-			System.out.println("\nWorker Pushes Box\n");
-			executeWorkerPushesBox();
-			break;
-		case 5:
-			System.out.println("\nBox Pushes Box\n");
-			executeBoxPushesBox();
-			break;
-		case 6:
-			System.out.println("\nBox Pushes Worker\n");
-			executeBoxPushesWorker();
-			break;
-		case 7:
-			System.out.println("\nSwitch Changes\n");
-			executeSwitchChanges();
-			break;
-		case 8:
-			System.out.println("\nSwitchableHoleSwitches\n");
-			executeSwitchableHoleSwitches();
-			break;
-		case 9:
-			System.out.println("\nBox Falls Into Hole\n");
-			executeBoxFallsIntoHole();
-			break;
-		case 10:
-			System.out.println("\nWorker Steps Into Hole\n");
-			executeWorkerStepsIntoHole();
-			break;
-		case 11:
-			System.out.println("\nBox Reaches BoxField\n");
-			executeBoxReachesBoxField();
-			break;
-		case 12:
-			System.out.println("\nBox Leaves BoxField\n");
-			executeBoxLeavesBoxField();
-			break;
-		case 13:
-			System.out.println("\nBox Pumps Into Obstacle\n");
-			executeBoxPumpsIntoObstacle();
-			break;
-		case 14:
-			System.out.println("\nEnd Game\n");
-			executeEndGame();
-			break;
-		case 0: 
-			System.exit(0);
-			break;
-		default:
-			System.out.println("Nincs ilyen menüpont!");
+			case "move":										//kész
+				moveCommand(parts);
+				break;
+			
+			case "put":
+				
+				break;	
+			
+			case "listboxes":									//kész
+				for(Box b : boxes)
+					b.printState(printer);
+				break;
+			
+			case "listworkers":									// kész
+				for(Worker w : workers)
+					w.printState(printer);
+				break;
+			
+			case "showstate":									//kész
+				showstateCommand(parts);
+				break;
+			
+			case "showmaze":									//kész
+				showmazeCommand();
+				break;
+			
+			default:
+				System.out.println("Nincs ilyen parancs.");
 		}
-		System.out.println("\n\nA menübe való visszatéréshez nyomjon meg egy gombot, majd ENTER-t!");
 		
-		br.readLine();
 	}
-	
-	
-	//a menüpontok szerinti szekvenciák
-	//1
-	void executeWorkerMoves() {
 		
-		Field fi = (Field) w.field.GetNeighbor(Direction.Up);
-		fi.ChangeDebug();
-		m.init();
-		clear();
-		w.Move(Direction.Up);
-	}
-	//2
-	void executeWorkerStepsOnSwitchableHole() {
-		m.init();
-		clear();
-		w.Move(Direction.Right);
-	}
-	//3
-	void executeTimerMakesWorkerStep() {
-		m.init();
-		clear();
-		t.Tick();
-	}
-	//4
-	void executeWorkerPushesBox() {
-		Field fi = (Field) w.field.GetNeighbor(Direction.Left).GetNeighbor(Direction.Left);
-		fi.ChangeDebug();
-		m.init();
-		clear();
-		w.Move(Direction.Left);
-	}
-	//5
-	void executeBoxPushesBox() {
-		Field fi = (Field) w.field.GetNeighbor(Direction.Down).GetNeighbor(Direction.Down).GetNeighbor(Direction.Down);
-		fi.ChangeDebug();
-		m.init();
-		clear();
-		w.Move(Direction.Down);
-	}
-	//6
-	void executeBoxPushesWorker() {
-		Field fi = (Field) w1.field.GetNeighbor(Direction.Down).GetNeighbor(Direction.Down).GetNeighbor(Direction.Down);
-		fi.ChangeDebug();
-		m.init();
-		clear();
-		w1.Move(Direction.Down);
-	}
-	//7
-	void executeSwitchChanges() {
-		m.init();
-		clear();
-		sw.Accept(box3);
-	}
-	//8
-	void executeSwitchableHoleSwitches() {
-		m.init();
-		clear();
-		sw.Change();
-	}
-	//9
-	void executeBoxFallsIntoHole() {
-		m.init();
-		clear();
-		w1.Move(Direction.Right);
-	}
-	//10
-	void executeWorkerStepsIntoHole() {
-		m.init();
-		clear();
-		w1.Move(Direction.Left);
-	}
-	//11
-	void executeBoxReachesBoxField() {
-		m.init();
-		executeBoxLeavesBoxField();
-		w2.field.Remove();
-		box6.d = Direction.Left;
-		clear();
-		bfield.Accept(box6);
+	
+
+
+	public void clearTest() {
+		workers.clear();
+		boxes.clear();
+		fields.clear();
 	}
 	
-	//12
-	void executeBoxLeavesBoxField() {
-		m.init();
-		clear();
-		w2.Move(Direction.Right);
+	public void initTest1(){
+		fieldMap = new FieldBase[1][2];
+		
+		Worker w = new Worker("w", 10);
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		
+		fields.add(f1);
+		fields.add(f2);
+		workers.add(w);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f1.setThing(w);
+		w.setField(f1);
 	}
 	
-	void executeBoxPumpsIntoObstacle() {
-		m.init();
-		clear();
-		w2.Move(Direction.Left);
+	public void initTest2(){
+		fieldMap = new FieldBase[1][2];
+		
+		Worker w = new Worker("w", 10);
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Hole("h");
+		
+		fields.add(f1);
+		fields.add(f2);
+		workers.add(w);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f1.setFriction(Friction.Normal);
+		f1.setThing(w);
+		w.setField(f1);
 	}
 	
-	void executeEndGame() throws IOException {
-		m.init();
-		clear();
-		m.CheckEndOfGame();
+	public void initTest3(){
+		fieldMap = new FieldBase[1][2];
+		
+		Worker w = new Worker("w", 10);
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new SwitchableHole("shole");
+		
+		fields.add(f1);
+		fields.add(f2);
+		workers.add(w);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f1.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f1.setThing(w);
+		w.setField(f1);
 	}
 	
-	//univerzális képernyõtörlés :D
-	void clear() {
-		for(int i = 0; i< 1000; ++i)
+	public void initTest4(){
+		initTest3();
+		((SwitchableHole)fields.get(1)).setOpen();
+		/*fieldMap = new FieldBase[1][2];
+		
+		Worker w = new Worker("w", 10);
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new SwitchableHole("shole");
+		
+		fields.add(f1);
+		fields.add(f2);
+		workers.add(w);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f1.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f1.setThing(w);
+		w.setField(f1);*/
+	}
+	
+	
+	
+	
+	private void loadtestCommand(String[] parts) {
+		clearTest();
+		int test = Integer.parseInt(parts[1]);
+		switch (test) {
+			case 1:
+				initTest1();
+				break;
+			case 2:
+				initTest2();
+				break;
+			case 3:
+				initTest3();
+				break;
+			case 4:
+				initTest4();
+				break;
+			case 5:
+				initTest3();
+				break;
+			case 6:
+				initTest3();
+				break;
+			case 7:
+				initTest3();
+				break;
+			case 8:
+				initTest3();
+				break;
+		}
+	}
+
+	private void showmazeCommand() {
+		for(int i = 0; i < fieldMap.length; ++i) {
+			for(int j = 0; j < fieldMap[i].length; ++j) {
+				FieldBase f = fieldMap[i][j];
+				System.out.print(f + ":" + f.getThing()+ " ");
+			}
 			System.out.println("");
+		}
+	}
+
+	public void moveCommand(String[] parts) {
+		String workerName = parts[1];
+		String direction = parts[2];
+		if(parts[2] != null) {
+			for(Worker w : workers) {
+				if(w.name.equals(workerName)) {
+					switch(direction) {
+						case "right":
+							w.Move(Direction.Right);
+							break;
+						case "left":
+							w.Move(Direction.Left);
+							break;
+						case "up":
+							w.Move(Direction.Up);
+							break;
+						case "down":
+							w.Move(Direction.Down);
+							break;
+					}
+				}
+			}
+		}
+			
 	}
 	
-	//paraméterként megadott eldöntendõ kérdés kiírása
-	static boolean Kerdes(String szoveg)
-	{
-		System.out.println("\n" + szoveg + "I/N");
-		String choice = null;
-		try {
-			choice = Game.op.br.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public void showstateCommand(String[] parts) {
+		if (parts[1] == null) {
+			System.out.println("Hibas parancs.");
+			return;
 		}
-		if(choice.charAt(0) == 'I' || choice.charAt(0) == 'i') 
-		{			
-			return true;
+			
+		for (FieldBase f : fields) {
+			if (f.name.equals(parts[1])) {
+				f.printState(printer);
+				return;
+			}
 		}
-		else
-			return false;
-	}
 		
-	
+		for (Box b : boxes) {
+			if (b.name.equals(parts[1])) {
+				b.printState(printer);
+				return;
+			}
+		}
+		
+		for (Worker w : workers) {
+			if (w.name.equals(parts[1])) {
+				w.printState(printer);
+				return;
+			}
+		}
+		
+	}
 }
