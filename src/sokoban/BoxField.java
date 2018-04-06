@@ -12,30 +12,19 @@ public class BoxField extends Field {
 	
 	
 	private Worker owner;
-	
-	
+
 	
 	public BoxField() {
-		Game.op.makeCall(null);
-		System.out.print("BoxField()");
 		
-		Game.op.returnFromFunc(null);
-		System.out.print("BoxField()");
 	}
 	
 	//beállítja a betolóját
 	public void SetOwner(Worker w) {
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		owner = w;
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
-		
-		
 	}
 	
 	//dobozt fogad, és pontot ad, illetve jelez a tólókon keresztül
 	public boolean Accept(Box b) {
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
-		
 		if (thing != null)
 		{
 			b.CollideWith(thing);
@@ -55,29 +44,13 @@ public class BoxField extends Field {
 		}
 		*/
 		
-		boolean valasz = Tester.Kerdes("Volt már tulajdonosa?");
-		if(valasz) {
-			boolean valasz1 = Tester.Kerdes("Az eredeti tulaj tolta be?");
-			if(valasz1)
-				pusher.AddPoints(1);
-		}
-		else {
-			pusher.AddPoints(1);
-			SetOwner(pusher);
-		}
 		b.onBoxField = true;
-		
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
-		
 		
 		return true;
 	}
 	
 	//munkást fogad, és elhelyezi a mezõn, ha lehet
 	public boolean Accept(Worker w) {
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
-		
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		return super.Accept(w);
 	}
 	
@@ -85,13 +58,10 @@ public class BoxField extends Field {
 	@Override
 	public void Remove()
 	{
-		
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		Worker pusher = ((Box)thing).pusher;
 		if(pusher == this.owner)
 			pusher.AddPoints(-1);
 		
 		thing = null;
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 	}
 }

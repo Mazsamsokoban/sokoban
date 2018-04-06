@@ -8,7 +8,8 @@ import java.util.List;
 public class Maze {
 	public Tester tester;
 	
-	private List<FieldBase> fields;
+	private FieldBase fields[][];
+	//private List<FieldBase> fields;
 	private List<Box> boxes;
 	private List<Worker> workers;
 	private Timer t;
@@ -16,19 +17,14 @@ public class Maze {
 	
 	//létrehozza az elemeknek a tárolókat 
 	public Maze() {
-		Game.op.makeCall(null);
-		System.out.print("Maze()");
-		fields = new ArrayList<FieldBase>();
+		fields = new FieldBase[5][5];
 		boxes = new ArrayList<Box>();
 		workers = new ArrayList<Worker>();
-		Game.op.returnFromFunc(null);
-		System.out.print("Maze()");
 	}
 	
 	//inicializál egy pályát, amin a viselkedések bemutathatók
 	public void init() {
-		Game.op.makeCall(null);
-		System.out.print("init()");
+		/*
 		
 		t = new Timer();
 		/////////////////////////////////////////////////////
@@ -91,7 +87,7 @@ public class Maze {
 		Switch sw = new Switch();
 		Obstacle obs = new Obstacle();
 		
-		sw.SetSw(sh);
+		sw.SetSh(sh);
 		
 		fields.add(f8);
 		fields.add(f9);
@@ -255,40 +251,40 @@ public class Maze {
 		tester.obs = obs;
 		tester.bfield = bfield;
 		
-		f7.SetNeighbor(Direction.Right, f3);
-		f3.SetNeighbor(Direction.Left, f7);
+		f7.setNeighbor(Direction.Right, f3);
+		f3.setNeighbor(Direction.Left, f7);
 		
-		f3.SetNeighbor(Direction.Right, f1);
-		f1.SetNeighbor(Direction.Left, f3);
+		f3.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Left, f3);
 		
-		f1.SetNeighbor(Direction.Right, sh);
-		sh.SetNeighbor(Direction.Left, f1);
+		f1.setNeighbor(Direction.Right, sh);
+		sh.setNeighbor(Direction.Left, f1);
 		
-		f1.SetNeighbor(Direction.Up, f2);
-		f2.SetNeighbor(Direction.Down, f1);
+		f1.setNeighbor(Direction.Up, f2);
+		f2.setNeighbor(Direction.Down, f1);
 		
-		f1.SetNeighbor(Direction.Down, f4);
-		f4.SetNeighbor(Direction.Up, f1);
+		f1.setNeighbor(Direction.Down, f4);
+		f4.setNeighbor(Direction.Up, f1);
 		
-		f4.SetNeighbor(Direction.Down, f5);
-		f5.SetNeighbor(Direction.Up, f4);
+		f4.setNeighbor(Direction.Down, f5);
+		f5.setNeighbor(Direction.Up, f4);
 		
-		f5.SetNeighbor(Direction.Down, f6);
-		f6.SetNeighbor(Direction.Up, f5);
+		f5.setNeighbor(Direction.Down, f6);
+		f6.setNeighbor(Direction.Up, f5);
 		
 		///////////////////////////////////////
-		sw.SetNeighbor(Direction.Down, f9);
-		f9.SetNeighbor(Direction.Down, f10);
-		f10.SetNeighbor(Direction.Left, hole2);
-		f10.SetNeighbor(Direction.Right, f16);
-		f10.SetNeighbor(Direction.Down, f11);
-		f16.SetNeighbor(Direction.Right, hole1);
-		f11.SetNeighbor(Direction.Down, f12);
-		f12.SetNeighbor(Direction.Down, f14);
-		f12.SetNeighbor(Direction.Right, bfield);
-		f12.SetNeighbor(Direction.Left, f13);
-		f13.SetNeighbor(Direction.Left, obs);
-		bfield.SetNeighbor(Direction.Right, f15);
+		sw.setNeighbor(Direction.Down, f9);
+		f9.setNeighbor(Direction.Down, f10);
+		f10.setNeighbor(Direction.Left, hole2);
+		f10.setNeighbor(Direction.Right, f16);
+		f10.setNeighbor(Direction.Down, f11);
+		f16.setNeighbor(Direction.Right, hole1);
+		f11.setNeighbor(Direction.Down, f12);
+		f12.setNeighbor(Direction.Down, f14);
+		f12.setNeighbor(Direction.Right, bfield);
+		f12.setNeighbor(Direction.Left, f13);
+		f13.setNeighbor(Direction.Left, obs);
+		bfield.setNeighbor(Direction.Right, f15);
 		
 		f3.thing = box0;
 		f4.thing = box1;
@@ -306,35 +302,20 @@ public class Maze {
 		
 		f1.thing = w;
 		
-		System.out.print(f3.GetNeighbor(Direction.Left));
+		System.out.print(f3.getNeighbor(Direction.Left));
 		Game.op.returnFromFunc(null);
-		System.out.print("init()");
+		System.out.print("init()");*/
 		
 		
 	}
 	//ellenõrzi, hogy teljesülnek-e a játék befejezésének feltételei, és ez alapján tér vissza
 	public boolean CheckEndOfGame() throws IOException
 	{
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		
-		
-		/*if (CheckBoxes())
+		if (CheckBoxes())
 			return true;
 		else if (workers.size() <= 1)
 			return true;
-		*/
-		System.out.println("\nMaradt még legalább 2 munkás ? I/N");
-		String choice = Game.op.br.readLine();
-		if(choice.charAt(0) == 'N' || choice.charAt(0) == 'n') {
-			game.endGame();
-			Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-			return true;
-		}
-		//minden box a helyén van-e
-		CheckBoxes();
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
 		return false;
-		
 	}
 	
 	
@@ -344,23 +325,13 @@ public class Maze {
 	
 	public boolean CheckBoxes() throws IOException
 	{
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		System.out.println("\nHelyükre kerültek a dobozok ? I/N");
-		String choice = Game.op.br.readLine();
-		if(choice.charAt(0) == 'I' || choice.charAt(0) == 'i') {
-			game.endGame();
-			Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-			return true;
-		}
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		/*for (Box b : boxes)
+		for (Box b : boxes)
 		{
 			if (!b.onBoxField) {
 				return false;
 			}
-		}*/
-		
-		return false;		
+		}
+		return true;		
 	}
 	
 }

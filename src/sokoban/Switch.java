@@ -1,22 +1,35 @@
 package sokoban;
 
-public class Switch extends Field {
+import java.io.PrintStream;
+import java.io.Serializable;
+
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType(propOrder = { "name", "thing", "friction", "on", "swhole" })
+@XmlRootElement
+public class Switch extends FieldBase{
+	@XmlAttribute
 	private boolean on;
-	private SwitchableHole hole;
+	@XmlElement
+	private SwitchableHole swhole;
 	
-	public Switch() {
-		Game.op.makeCall(null);
-		System.out.print("Switch()");
-		
-		Game.op.returnFromFunc(null);
-		System.out.print("Switch()");
+	public Switch(String n) {
+		name = n;
 	}
 	
+	public Switch() {
+	}
+	
+	public boolean isOn() {
+		return on;
+	}
 	//fogadja a rá érkezõ dobozt, és állapotot vált
 	public boolean Accept(Box b) {
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
 		Change();
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(b) +  ")");
 		/*if (super.Accept(b))
 		{
 			Change();
@@ -27,23 +40,27 @@ public class Switch extends Field {
 	
 	//fogadja a rá érkezõ munkást
 	public boolean Accept(Worker w) {
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
-		
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "(" + Game.op.get(w) +  ")");
 		//return super.Accept(w);
 		return false;
 	}
 	
 	//beállítja a hozzá tartozó csapóajtót
-	void SetSw(SwitchableHole sw) {
-		hole = sw;
+	public void SetSh(SwitchableHole sh) {
+		swhole = sh;
 	}
 	
 	//vált, és váltja a hozzá tartozó csapóajtót is
 	public void Change() {
-		Game.op.callfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
-		hole.SetOpen();
-		Game.op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName() + "()");
+		swhole.setOpen();
 		on = !on;
+	}
+	
+	public void printState(PrintStream w) {
+		w.println("name:"+ name + "\n"
+				+ "friction:" + getFriction() + "\n"
+				+ "thing:" + thing + "\n"
+				+ "on:" + on + "\n"
+				+ "switchablehole:" + swhole + "\n"
+				);
 	}
 }
