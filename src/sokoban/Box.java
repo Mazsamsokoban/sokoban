@@ -33,9 +33,13 @@ public class Box extends Thing implements Serializable{
 	//nekimegy a dir irányban egy box
 	public void HitBy(Box b, Direction dir) {
 		super.d = dir;
-		if (getField().getNeighbor(dir).Accept(this))
+		FieldBase f = getField().getNeighbor(dir);
+		FieldBase old = getField();
+		if (f.Accept(this))
 		{
-			getField().Remove();
+			old.Remove();
+			f.setThing(this);
+			this.setField(f);
 		}		
 	}
 	
@@ -48,6 +52,8 @@ public class Box extends Thing implements Serializable{
 		if (f.Accept(this))
 		{
 			old.Remove();
+			f.setThing(this);
+			this.setField(f);
 		}		
 	}
 	

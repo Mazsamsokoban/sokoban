@@ -36,6 +36,7 @@ public class Worker extends Thing implements Steppable {
 		{
 			old.Remove();
 			f1.setThing(this);
+			this.setField(f1);
 		}
 		return false;
 	}
