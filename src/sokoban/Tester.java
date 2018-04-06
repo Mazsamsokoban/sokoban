@@ -145,11 +145,14 @@ public class Tester {
 	public void initTest4(){
 		initTest3();
 		((SwitchableHole)fields.get(1)).setOpen();
-		/*fieldMap = new FieldBase[1][2];
+	}
+	
+	public void initTest5(){
+		fieldMap = new FieldBase[1][2];
 		
 		Worker w = new Worker("w", 10);
 		FieldBase f1 = new Field("f1");
-		FieldBase f2 = new SwitchableHole("shole");
+		FieldBase f2 = new Obstacle("obs");
 		
 		fields.add(f1);
 		fields.add(f2);
@@ -160,13 +163,49 @@ public class Tester {
 		
 		f1.setNeighbor(Direction.Right, f2);
 		f1.setFriction(Friction.Normal);
-		f1.setFriction(Friction.Normal);
 		f1.setThing(w);
-		w.setField(f1);*/
+		
+		w.setField(f1);
 	}
 	
+	public void initTest6() {
+		
+	}
 	
+	public void initTest7() {
+		
+	}
 	
+	public void initTest8() {
+		fieldMap = new FieldBase[1][3];
+		
+		Worker w = new Worker("w", 10);
+		Box b = new Box("box");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		FieldBase f3 = new Field("f3");
+		
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		workers.add(w);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		fieldMap[0][2] = f3;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f3.setFriction(Friction.Normal);
+		f1.setThing(w);
+		w.setField(f1);
+		
+		f2.setThing(b);
+		b.setField(f2);
+	}
 	
 	private void loadtestCommand(String[] parts) {
 		clearTest();
@@ -185,16 +224,16 @@ public class Tester {
 				initTest4();
 				break;
 			case 5:
-				initTest3();
+				initTest5();
 				break;
 			case 6:
-				initTest3();
+				initTest6();
 				break;
 			case 7:
-				initTest3();
+				initTest7();
 				break;
 			case 8:
-				initTest3();
+				initTest8();
 				break;
 		}
 	}
