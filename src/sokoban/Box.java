@@ -42,6 +42,7 @@ public class Box extends Thing implements Serializable{
 	//nekimegy a dir irányban egy box
 	public void HitBy(Box b, Direction dir) {
 		setDirection(dir);
+		this.pusher = b.getPusher();
 		FieldBase f = getField().getNeighbor(dir);
 		FieldBase old = getField();
 		if (f.Accept(this))
@@ -82,7 +83,6 @@ public class Box extends Thing implements Serializable{
 	public void printState(PrintStream w) {
 		w.println("name:"+ name + "\n"
 				+  "field:" + getField() + "\n"
-				+  "field:" + getField().getFriction() + "\n"
 				+ "direction:" + getDirection() + "\n"
 				+ "owner:" + owner + "\n"
 				+ "pusher:" + pusher + "\n"
