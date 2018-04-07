@@ -1,5 +1,6 @@
 package sokoban;
 
+import java.io.PrintStream;
 
 public class BoxField extends Field {
 	private Worker owner;
@@ -23,9 +24,11 @@ public class BoxField extends Field {
 		if (thing != null)
 		{
 			b.CollideWith(thing);
-			return Accept(b);
+			if (thing != null)		//nem tolódott tovább az, amivel ütközött
+				return false;
 		}
 		
+		box = b;
 		Worker pusher = b.Notify();	
 		
 		if (pusher == b.getOwner())
@@ -52,11 +55,36 @@ public class BoxField extends Field {
 	@Override
 	public void Remove()
 	{
-		Worker pusher = ((Box)thing).getPusher();
+		if(box != null) {
+			Worker pusher = box.getPusher();
+			Worker o = box.getOwner();
+			if(pusher == o)
+				pusher.AddPoints(-1);
+			box = null;
+		}
+		thing = null;
+		
+		/*Worker pusher = ((Box)thing).getPusher();
 		Worker o = ((Box)thing).getOwner();
 		if(pusher == o)
 			pusher.AddPoints(-1);
 		
-		thing = null;
+		thing = null;*/
+	}
+	
+	public Box getBox() {
+		return box;
+	}
+	
+	public void setBox(Box b) {
+		box = b;
+	}
+	
+	public void printState(PrintStream w) {
+		w.println("name:"+ name + "\n"
+				+ "friction:" + getFriction() + "\n"
+				+ "thing:" + thing + "\n"
+				+ "box:" + box + "\n"
+				);
 	}
 }

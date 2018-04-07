@@ -58,10 +58,15 @@ public class Worker extends Thing implements Steppable {
 	}
 	//a munkásnak dir irányban nekimegy egy doboz
 	public void HitBy(Box b, Direction dir) {
-		if (getField().getNeighbor(dir).Accept(this))
+		setDirection(dir);
+		FieldBase f = getField().getNeighbor(dir);
+		FieldBase old = getField();
+		if (f.Accept(this))
 		{
-			getField().Remove();
-		}	
+			old.Remove();
+			f.setThing(this);
+			this.setField(f);
+		}		
 	}
 	
 	//a munkás törlõdik a mezõjérõl
