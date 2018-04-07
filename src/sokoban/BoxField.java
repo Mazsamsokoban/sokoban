@@ -2,24 +2,19 @@ package sokoban;
 
 
 public class BoxField extends Field {
-	//Debug
-	boolean debug = true;
-	public void ChangeDebug()
-	{
-		debug = !debug;
-	}
-	//Debug
-	
-	
 	private Worker owner;
+	private Box box;
 
 	
 	public BoxField() {
 		
 	}
 	
+	public BoxField(String n){
+		name = n;
+	}
 	//beállítja a betolóját
-	public void SetOwner(Worker w) {
+	public void setOwner(Worker w) {
 		owner = w;
 	}
 	
@@ -32,20 +27,19 @@ public class BoxField extends Field {
 		}
 		
 		Worker pusher = b.Notify();	
-		/*
-		if (pusher == owner)
+		
+		if (pusher == b.getOwner())
 		{
 			pusher.AddPoints(1);
 		}
-		else if (owner == null)
+		else if (b.getOwner() == null)
 		{
 			pusher.AddPoints(1);
-			SetOwner(pusher);
+			setOwner(pusher);
+			b.setOwner(pusher);
 		}
-		*/
 		
-		b.onBoxField = true;
-		
+		b.setOnBoxField();
 		return true;
 	}
 	
@@ -58,8 +52,9 @@ public class BoxField extends Field {
 	@Override
 	public void Remove()
 	{
-		Worker pusher = ((Box)thing).pusher;
-		if(pusher == this.owner)
+		Worker pusher = ((Box)thing).getPusher();
+		Worker o = ((Box)thing).getOwner();
+		if(pusher == o)
 			pusher.AddPoints(-1);
 		
 		thing = null;

@@ -327,7 +327,7 @@ public class Maze {
 	{
 		for (Box b : boxes)
 		{
-			if (!b.onBoxField) {
+			if (!b.isOnBoxField()) {
 				return false;
 			}
 		}

@@ -9,12 +9,6 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "name", "thing", "friction"})
 @XmlRootElement
 public class Field extends FieldBase  {
-	boolean debug = false;
-	public void ChangeDebug()
-	{
-		debug = !debug;
-	}
-	
 	public Field(String n) {
 		name = n;
 	}
@@ -27,7 +21,11 @@ public class Field extends FieldBase  {
 		if (thing != null)
 		{
 			b.CollideWith(thing);
-			return Accept(b);
+			if(thing == null)
+				return true;
+			else 
+				return false;
+			//return Accept(b);
 		}
 		return true;
 	}
@@ -37,7 +35,11 @@ public class Field extends FieldBase  {
 		if (thing != null)
 		{
 			w.CollideWith(thing);
-			return Accept(w);
+			if(thing == null)
+				return true;
+			else 
+				return false;
+			//return Accept(w);
 		}
 		return true;
 	}
