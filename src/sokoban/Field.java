@@ -21,7 +21,7 @@ public class Field extends FieldBase  {
 		if (thing != null)
 		{
 			b.CollideWith(thing);
-			if(thing == null)
+			if(thing == null) 
 				return true;
 			else 
 				return false;

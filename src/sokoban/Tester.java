@@ -325,6 +325,7 @@ public class Tester {
 		w.AddPoints(1);
 		
 		bf.setThing(b);
+		bf.setBox(b);
 		b.setField(bf);
 		
 		b.setOwner(w);
@@ -373,6 +374,7 @@ public class Tester {
 		f1.setThing(w2);
 		w2.setField(f1);
 		
+		bf.setBox(b);
 		bf.setThing(b);
 		b.setField(bf);
 		
@@ -380,6 +382,59 @@ public class Tester {
 		
 		b.setOwner(w1);
 		w1.AddPoints(1);
+	}
+	
+	public void initTest14() {
+fieldMap = new FieldBase[1][5];
+		
+		Worker w1 = new Worker("w1", 10);
+		Worker w2 = new Worker("w2", 10);
+		Box b1 = new Box("box1");
+		Box b2 = new Box("box2");
+		FieldBase f0 = new Field("f0");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		FieldBase f3 = new Field("f3");
+		BoxField bf = new BoxField("bf");
+		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		fields.add(bf);
+		
+		workers.add(w1);
+		workers.add(w2);
+		boxes.add(b1);
+		boxes.add(b2);
+		
+		fieldMap[0][0] = f0;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = f2;
+		fieldMap[0][3] = f3;
+		fieldMap[0][4] = bf;
+		
+		f0.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f3.setNeighbor(Direction.Right, bf);
+		f0.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f3.setFriction(Friction.Normal);
+		bf.setFriction(Friction.Normal);
+		
+		f0.setThing(w1);
+		w1.setField(f0);
+		
+		f1.setThing(b1);
+		b1.setField(f1);
+		
+		f2.setThing(w2);
+		w2.setField(f2);
+		
+		f3.setThing(b2);
+		b2.setField(f3);
 	}
 	
 	private void loadtestCommand(String[] parts) {
@@ -425,28 +480,45 @@ public class Tester {
 			case 13:
 				initTest13();
 				break;
-			/*case 14:
+			case 14:
 				initTest14();
 				break;
-			case 8:
-				initTest8();
+			/*case 15:
+				initTest15();
 				break;
-			case 8:
-				initTest8();
+			case 16:
+				initTest16();
 				break;
-			case 8:
-				initTest8();
+			case 17:
+				initTest17();
 				break;
-			case 8:
-				initTest8();
+			case 18:
+				initTest18();
 				break;
-			case 8:
-				initTest8();
+			case 19:
+				initTest19();
 				break;
-			case 8:
-				initTest8();
-				break;*/
-				
+			case 20:
+				initTest20();
+				break;
+			case 21:
+				initTest21();
+				break;
+			case 22:
+				initTest22();
+				break;
+			case 23:
+				initTest23();
+				break;	
+			case 24:
+				initTest24();
+				break;	
+			case 25:
+				initTest25();
+				break;
+			case 26:
+				initTest26();
+				break;*/	
 		}
 	}
 
