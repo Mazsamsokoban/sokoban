@@ -64,6 +64,7 @@ public abstract class FieldBase{
         case Down: n = Direction.Up; break;
         case Right: n = Direction.Left; break;
         case Left: n = Direction.Right; break;
+        default: return;
         }
         if (f.getNeighbor(n) == null)
             f.setNeighbor(n, this);

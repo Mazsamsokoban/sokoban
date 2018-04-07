@@ -15,10 +15,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlSeeAlso({Field.class, SwitchableHole.class, Switch.class})
 public abstract class Thing{
 	@XmlAttribute(name = "direction")
-	protected Direction d;
+	private Direction d;
 	
-	
-	protected FieldBase field;
+	private FieldBase field;
 	protected float pushForce;
 	
 	@XmlAttribute(name = "name")

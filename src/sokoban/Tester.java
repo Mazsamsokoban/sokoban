@@ -207,6 +207,181 @@ public class Tester {
 		b.setField(f2);
 	}
 	
+	public void initTest9() {
+		fieldMap = new FieldBase[1][3];
+		
+		Worker w = new Worker("w", 10);
+		Box b = new Box("box");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		BoxField f3 = new BoxField("bf");
+		
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		workers.add(w);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		fieldMap[0][2] = f3;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f3.setFriction(Friction.Normal);
+		f1.setThing(w);
+		w.setField(f1);
+		
+		f2.setThing(b);
+		b.setField(f2);
+		
+		f3.setOwner(w);
+		
+		b.setOwner(w);
+	}
+	
+	public void initTest10() {
+		initTest9();
+		boxes.get(0).setOwner(null);
+	}
+	
+	public void initTest11(){
+		fieldMap = new FieldBase[1][4];
+		
+		Worker w1 = new Worker("w1", 10);
+		Worker w2 = new Worker("w2", 10);
+		Box b = new Box("box");
+		FieldBase f0 = new Field("f0");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		BoxField f3 = new BoxField("bf");
+		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		workers.add(w1);
+		workers.add(w2);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f0;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = f2;
+		fieldMap[0][3] = f3;
+		
+		f0.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f0.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f3.setFriction(Friction.Normal);
+		
+		f0.setThing(w1);
+		w1.setField(f0);
+		
+		f1.setThing(w2);
+		w2.setField(f1);
+		
+		f2.setThing(b);
+		b.setField(f2);
+		
+		f3.setOwner(w1);
+		
+		b.setOwner(w1);
+	}
+	
+	public void initTest12() {
+		fieldMap = new FieldBase[1][3];
+		
+		Worker w = new Worker("w", 10);
+		Box b = new Box("box");
+		FieldBase f1 = new Field("f1");
+		BoxField bf = new BoxField("bf");
+		FieldBase f2 = new Field("f2");
+		
+		
+		fields.add(f1);
+		fields.add(bf);
+		fields.add(f2);
+		
+		workers.add(w);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = bf;
+		fieldMap[0][2] = f2;
+		
+		f1.setNeighbor(Direction.Right, bf);
+		bf.setNeighbor(Direction.Right, f2);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		bf.setFriction(Friction.Normal);
+		
+		f1.setThing(w);
+		w.setField(f1);
+		w.AddPoints(1);
+		
+		bf.setThing(b);
+		b.setField(bf);
+		
+		b.setOwner(w);
+		
+		bf.setOwner(w);
+	
+		b.setOwner(w);
+	}
+	
+	public void initTest13() {
+		fieldMap = new FieldBase[1][4];
+		
+		Worker w1 = new Worker("w1", 10);
+		Worker w2 = new Worker("w2", 10);
+		Box b = new Box("box");
+		FieldBase f0 = new Field("f0");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		BoxField bf = new BoxField("bf");
+		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(bf);
+		fields.add(f2);
+		
+		workers.add(w1);
+		workers.add(w2);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f0;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = bf;
+		fieldMap[0][3] = f2;
+		
+		f0.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, bf);
+		bf.setNeighbor(Direction.Right, f2);
+		f0.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		bf.setFriction(Friction.Normal);
+		
+		f0.setThing(w1);
+		w1.setField(f0);
+		
+		f1.setThing(w2);
+		w2.setField(f1);
+		
+		bf.setThing(b);
+		b.setField(bf);
+		
+		bf.setOwner(w1);
+		
+		b.setOwner(w1);
+		w1.AddPoints(1);
+	}
+	
 	private void loadtestCommand(String[] parts) {
 		clearTest();
 		int test = Integer.parseInt(parts[1]);
@@ -235,6 +410,43 @@ public class Tester {
 			case 8:
 				initTest8();
 				break;
+			case 9:
+				initTest9();
+				break;
+			case 10:
+				initTest10();
+				break;
+			case 11:
+				initTest11();
+				break;
+			case 12:
+				initTest12();
+				break;
+			case 13:
+				initTest13();
+				break;
+			/*case 14:
+				initTest14();
+				break;
+			case 8:
+				initTest8();
+				break;
+			case 8:
+				initTest8();
+				break;
+			case 8:
+				initTest8();
+				break;
+			case 8:
+				initTest8();
+				break;
+			case 8:
+				initTest8();
+				break;
+			case 8:
+				initTest8();
+				break;*/
+				
 		}
 	}
 

@@ -12,8 +12,6 @@ public class SwitchableHole extends Hole {
 	@XmlAttribute
 	private boolean open;
 	
-	
-	
 	public SwitchableHole(String n) {
 		name = n;
 		open = false;
@@ -32,6 +30,10 @@ public class SwitchableHole extends Hole {
 			if(thing != null) 
 				thing.Delete();
 		}
+	}
+	
+	public boolean isOpen() {
+		return open;
 	}
 	
 	//fogadja a rá érkezõ dobozt, ha nyitva van, akkor ledobja

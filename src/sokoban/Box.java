@@ -12,10 +12,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(propOrder = { "name", "d", "field", "onBoxField" })
 @XmlRootElement
 public class Box extends Thing implements Serializable{
-	Worker owner;
-	Worker pusher;
+	private Worker owner;
+	private Worker pusher;
 	@XmlAttribute
-	public boolean onBoxField = false;
+	private boolean onBoxField = false;
 	
 	public Box(String n) {
 		name = n;
@@ -25,6 +25,15 @@ public class Box extends Thing implements Serializable{
 	public Box() {
 	}
 	
+	public void setOnBoxField() {
+		onBoxField = !onBoxField;
+	}
+	
+	public boolean isOnBoxField() {
+		return onBoxField;
+	}
+	
+	
 	//ütköztetõ fgv
 	public void CollideWith(Thing t) {
 		t.HitBy(this, super.getDirection());
@@ -32,7 +41,7 @@ public class Box extends Thing implements Serializable{
 	
 	//nekimegy a dir irányban egy box
 	public void HitBy(Box b, Direction dir) {
-		super.d = dir;
+		setDirection(dir);
 		FieldBase f = getField().getNeighbor(dir);
 		FieldBase old = getField();
 		if (f.Accept(this))
@@ -41,11 +50,12 @@ public class Box extends Thing implements Serializable{
 			f.setThing(this);
 			this.setField(f);
 		}		
+		
 	}
 	
 	//nekimegy a dir irányban egy box
 	public void HitBy(Worker w, Direction dir) {
-		super.d = dir;
+		setDirection(dir);
 		this.pusher = w;
 		FieldBase f = getField().getNeighbor(dir);
 		FieldBase old = getField();
@@ -59,8 +69,8 @@ public class Box extends Thing implements Serializable{
 	
 	//törli magát a mezõjérõl
 	public void Delete() {
-		field.setThing(null);
-		field = null;
+		getField().setThing(null);
+		setField(null);
 	}
 	
 	//jelzi, hogy beérkezett
@@ -76,7 +86,25 @@ public class Box extends Thing implements Serializable{
 				+ "direction:" + getDirection() + "\n"
 				+ "owner:" + owner + "\n"
 				+ "pusher:" + pusher + "\n"
-				+ "pushforce:" + pushForce + "\n"
+				//+ "pushforce:" + pushForce + "\n"
 				);
 	}
+
+	public Worker getPusher() {
+		return pusher;
+	}
+	
+	public void setPusher(Worker p) {
+		pusher = p;
+	}
+	
+	public Worker getOwner() {
+		return owner;
+	}
+	
+	public void setOwner(Worker o) {
+		owner = o;
+	}
+
+	
 }

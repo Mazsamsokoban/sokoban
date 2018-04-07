@@ -29,8 +29,8 @@ public class Worker extends Thing implements Steppable {
 	
 	//a munkás a megadott irányban lévõ mezõre mozog
 	public boolean Move(Direction dir) {
-		FieldBase f1 = field.getNeighbor(dir);
-		super.d = dir;
+		FieldBase f1 = getField().getNeighbor(dir);
+		setDirection(dir);
 		FieldBase old = getField();
 		if (f1.Accept(this))
 		{
@@ -54,6 +54,7 @@ public class Worker extends Thing implements Steppable {
 	
 	//a munkásnak dir irányban nekimegy egy másik munkás
 	public void HitBy(Worker w, Direction dir) {
+			
 	}
 	//a munkásnak dir irányban nekimegy egy doboz
 	public void HitBy(Box b, Direction dir) {
@@ -65,8 +66,8 @@ public class Worker extends Thing implements Steppable {
 	
 	//a munkás törlõdik a mezõjérõl
 	public void Delete() {
-		field.setThing(null);
-		field = null;
+		getField().setThing(null);
+		setField(null);
 	}
 	
 	// a munkás lép
