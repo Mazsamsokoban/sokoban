@@ -16,7 +16,6 @@ import javax.xml.bind.annotation.XmlTransient;
 public abstract class Thing{
 	@XmlAttribute(name = "direction")
 	private Direction d;
-	
 	private FieldBase field;
 	protected float pushForce;
 	
@@ -29,9 +28,9 @@ public abstract class Thing{
 	//absztrakt ütköztetõ és törlõ fgv-ek
 	public abstract void CollideWith(Thing t);
 	
-	public abstract void HitBy(Box b, Direction dir);
+	public abstract void HitBy(Box b, Direction dir, float force);
 	
-	public abstract void HitBy(Worker w, Direction dir);
+	public abstract void HitBy(Worker w, Direction dir, float force);
 	
 	public abstract void Delete();
 	
@@ -50,12 +49,6 @@ public abstract class Thing{
 		this.d = d;
 	}
 	
-	//tartalmazó mezõ visszaadása
-	/*FieldBase getField()
-	{
-		return field;
-	}*/
-	//tartalmazó mezõ beállítása
 	
 	public void setField(FieldBase f) {
 		field = f;

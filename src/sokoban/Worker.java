@@ -49,24 +49,34 @@ public class Worker extends Thing implements Steppable {
 	
 	//a munkás ütközik a t dologgal
 	public void CollideWith(Thing t) {
-		t.HitBy(this, getDirection());
+		t.HitBy(this, getDirection(), this.getPushForce());
 	}
 	
 	//a munkásnak dir irányban nekimegy egy másik munkás
-	public void HitBy(Worker w, Direction dir) {
+	public void HitBy(Worker w, Direction dir, float force) {
 			
 	}
 	//a munkásnak dir irányban nekimegy egy doboz
-	public void HitBy(Box b, Direction dir) {
+	public void HitBy(Box b, Direction dir, float force) {
+		float tempPushForce = this.getPushForce(); //amíg tolják, addig más a pushForce
+		this.setPushForce(force);  //ezzel az erõvel tol tovább
 		setDirection(dir);
 		FieldBase f = getField().getNeighbor(dir);
 		FieldBase old = getField();
-		if (f.Accept(this))
-		{
+		boolean isAccepted = f.Accept(this);
+		if (!isAccepted && f.getThing() == null) {		//Obstaclenek toltuk, ezért a munkás meghal
+			this.Delete();
+		}
+		else if(isAccepted) {
 			old.Remove();
 			f.setThing(this);
 			this.setField(f);
 		}		
+		this.setPushForce(tempPushForce);  //tolás után visszaállítjuk
+	}
+	
+	public void put(Friction f) {
+		this.getField().setFriction(f);
 	}
 	
 	//a munkás törlõdik a mezõjérõl

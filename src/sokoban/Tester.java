@@ -44,7 +44,7 @@ public class Tester {
 				break;
 			
 			case "put":
-				
+				putCommand(parts);
 				break;	
 			
 			case "listboxes":									//kész
@@ -210,24 +210,29 @@ public class Tester {
 	}
 	
 	public void initTest7() {
-		fieldMap = new FieldBase[1][2];
+		//fieldMap = new FieldBase[1][3];
 		
 		Worker w1 = new Worker("w1", 10);
 		Worker w2 = new Worker("w2", 10);
 		FieldBase f1 = new Field("f1");
 		FieldBase f2 = new Field("f2");
+		//FieldBase f3 = new Field("f3");
 		
 		fields.add(f1);
 		fields.add(f2);
+		//fields.add(f3);
 		workers.add(w1);
 		workers.add(w2);
 		
 		fieldMap[0][0] = f1;
 		fieldMap[0][1] = f2;
+		//fieldMap[0][2] = f3;
 		
 		f1.setNeighbor(Direction.Right, f2);
+		//f2.setNeighbor(Direction.Right, f3);
 		f1.setFriction(Friction.Normal);
 		f2.setFriction(Friction.Normal);
+		//f3.setFriction(Friction.Normal);
 		f1.setThing(w1);
 		w1.setField(f1);
 		f2.setThing(w2);
@@ -300,6 +305,7 @@ public class Tester {
 		f3.setOwner(w);
 		
 		b.setOwner(w);
+		w.AddPoints(1);
 	}
 	
 	public void initTest10() {
@@ -723,7 +729,7 @@ public class Tester {
 	}
 	
 	public void initTest22() {
-fieldMap = new FieldBase[1][4];
+		fieldMap = new FieldBase[1][4];
 		
 		Worker w = new Worker("w", 10);
 		Box b1 = new Box("box1");
@@ -762,6 +768,170 @@ fieldMap = new FieldBase[1][4];
 		
 		f2.setThing(b2);
 		b2.setField(f2);
+	}
+	
+	public void initTest23() {
+		fieldMap = new FieldBase[1][5];
+		
+		Worker w = new Worker("w", 10);
+		Box b1 = new Box("box1");
+		Box b2 = new Box("box2");
+		Box b3 = new Box("box3");
+		FieldBase f0 = new Field("f0");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		FieldBase f3 = new Field("f3");
+		FieldBase f4 = new Field("f4");
+		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		fields.add(f4);
+		workers.add(w);
+		boxes.add(b1);
+		boxes.add(b2);
+		boxes.add(b3);
+		
+		fieldMap[0][0] = f0;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = f2;
+		fieldMap[0][3] = f3;
+		fieldMap[0][4] = f4;
+		
+		f0.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f3.setNeighbor(Direction.Right, f4);
+		f0.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Honey);
+		f2.setFriction(Friction.Oil);
+		f3.setFriction(Friction.Normal);
+		f4.setFriction(Friction.Normal);
+		
+		f0.setThing(w);
+		w.setField(f0);
+		
+		f1.setThing(b1);
+		b1.setField(f1);
+		
+		f2.setThing(b2);
+		b2.setField(f2);
+		
+		f3.setThing(b3);
+		b3.setField(f3);
+	}
+	
+	public void initTest24() {
+fieldMap = new FieldBase[1][5];
+		
+		Worker w = new Worker("w", 10);
+		Box b1 = new Box("box1");
+		Box b2 = new Box("box2");
+		Box b3 = new Box("box3");
+		FieldBase f0 = new Field("f0");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		FieldBase f3 = new Field("f3");
+		FieldBase f4 = new Field("f4");
+		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		fields.add(f4);
+		workers.add(w);
+		boxes.add(b1);
+		boxes.add(b2);
+		boxes.add(b3);
+		
+		fieldMap[0][0] = f0;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = f2;
+		fieldMap[0][3] = f3;
+		fieldMap[0][4] = f4;
+		
+		f0.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f3.setNeighbor(Direction.Right, f4);
+		f0.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Honey);
+		f2.setFriction(Friction.Honey);
+		f3.setFriction(Friction.Normal);
+		f4.setFriction(Friction.Normal);
+		
+		f0.setThing(w);
+		w.setField(f0);
+		
+		f1.setThing(b1);
+		b1.setField(f1);
+		
+		f2.setThing(b2);
+		b2.setField(f2);
+		
+		f3.setThing(b3);
+		b3.setField(f3);
+	}
+	
+	public void initTest25() {
+		fieldMap = new FieldBase[1][4];
+		
+		Worker w1 = new Worker("w1", 10);
+		Worker w2 = new Worker("w2", 10);
+		Box b = new Box("box");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		FieldBase f3 = new Field("f3");
+		FieldBase f4 = new Obstacle("obs");
+		
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		fields.add(f4);
+		workers.add(w1);
+		workers.add(w2);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f1;
+		fieldMap[0][1] = f2;
+		fieldMap[0][2] = f3;
+		fieldMap[0][3] = f4;
+		
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f3.setNeighbor(Direction.Right, f4);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f3.setFriction(Friction.Normal);
+
+		f1.setThing(w1);
+		w1.setField(f1);
+		
+		f2.setThing(b);
+		b.setField(f2);
+		
+		f3.setThing(w2);
+		w2.setField(f3);
+	}
+	
+	
+	public void initTest26() {
+		fieldMap = new FieldBase[1][1];
+		
+		Worker w = new Worker("w", 10);
+		FieldBase f1 = new Field("f1");
+		
+		fields.add(f1);
+		workers.add(w);
+		
+		fieldMap[0][0] = f1;
+	
+		f1.setFriction(Friction.Normal);
+		
+		f1.setThing(w);
+		w.setField(f1);
+
 	}
 	
 	private void loadtestCommand(String[] parts) {
@@ -834,18 +1004,18 @@ fieldMap = new FieldBase[1][4];
 			case 22:
 				initTest22();
 				break;
-			/*case 23:
+			case 23:
 				initTest23();
 				break;	
 			case 24:
 				initTest24();
-				break;	
+				break;
 			case 25:
 				initTest25();
 				break;
 			case 26:
 				initTest26();
-				break;*/	
+				break;	
 		}
 	}
 
@@ -860,6 +1030,10 @@ fieldMap = new FieldBase[1][4];
 	}
 
 	public void moveCommand(String[] parts) {
+		if (parts[1] == null) {
+			System.out.println("Hibas parancs.");
+			return;
+		}
 		String workerName = parts[1];
 		String direction = parts[2];
 		if(parts[2] != null) {
@@ -885,6 +1059,32 @@ fieldMap = new FieldBase[1][4];
 			
 	}
 	
+	public void putCommand(String[] parts) {
+		if (parts[1] == null) {
+			System.out.println("Hibas parancs.");
+			return;
+		}
+		String workerName = parts[1];
+		String friction = parts[2];
+		if(parts[2] != null) {
+			for(Worker w : workers) {
+				if(w.name.equals(workerName)) {
+					switch(friction) {
+						case "oil":
+							w.put(Friction.Oil);
+							break;
+						case "honey":
+							w.put(Friction.Honey);
+							break;
+						case "normal":
+							w.put(Friction.Normal);
+							break;
+					}
+				}
+			}
+		}
+		
+	}
 	public void showstateCommand(String[] parts) {
 		if (parts[1] == null) {
 			System.out.println("Hibas parancs.");

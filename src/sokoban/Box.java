@@ -36,11 +36,15 @@ public class Box extends Thing implements Serializable{
 	
 	//ütköztetõ fgv
 	public void CollideWith(Thing t) {
-		t.HitBy(this, super.getDirection());
+		t.HitBy(this, super.getDirection(), this.getPushForce());
 	}
 	
 	//nekimegy a dir irányban egy box
-	public void HitBy(Box b, Direction dir) {
+	public void HitBy(Box b, Direction dir, float force) {
+		Friction friction = this.getField().getFriction();
+		this.setPushForce(force - friction.getValue());
+		if(force - friction.getValue() <= 0) return;	//nem tudja eltolni
+		
 		setDirection(dir);
 		this.pusher = b.getPusher();
 		FieldBase f = getField().getNeighbor(dir);
@@ -55,7 +59,11 @@ public class Box extends Thing implements Serializable{
 	}
 	
 	//nekimegy a dir irányban egy box
-	public void HitBy(Worker w, Direction dir) {
+	public void HitBy(Worker w, Direction dir, float force) {
+		Friction friction = this.getField().getFriction();
+		this.setPushForce(force - friction.getValue());
+		if(force - friction.getValue() <= 0) return;		//nem tudja eltolni
+		
 		setDirection(dir);
 		this.pusher = w;
 		FieldBase f = getField().getNeighbor(dir);
