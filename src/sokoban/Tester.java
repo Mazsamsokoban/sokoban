@@ -823,7 +823,7 @@ public class Tester {
 	}
 	
 	public void initTest24() {
-fieldMap = new FieldBase[1][5];
+		fieldMap = new FieldBase[1][5];
 		
 		Worker w = new Worker("w", 10);
 		Box b1 = new Box("box1");
@@ -931,7 +931,103 @@ fieldMap = new FieldBase[1][5];
 		
 		f1.setThing(w);
 		w.setField(f1);
-
+	}
+	
+	public void initTest27() {
+fieldMap = new FieldBase[1][5];
+		
+		Worker w1 = new Worker("w1", 10);
+		Worker w2 = new Worker("w2", 10);
+		Worker w3 = new Worker("w3", 10);
+		Box b = new Box("box");
+		FieldBase f0 = new Field("f0");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		FieldBase f3 = new Field("f3");
+		FieldBase f4 = new Field("f4");
+		
+		fields.add(f0);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(f3);
+		fields.add(f4);
+		workers.add(w1);
+		workers.add(w2);
+		workers.add(w3);
+		boxes.add(b);
+		
+		fieldMap[0][0] = f0;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = f2;
+		fieldMap[0][3] = f3;
+		fieldMap[0][4] = f4;
+		
+		f0.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, f3);
+		f3.setNeighbor(Direction.Right, f4);
+		f0.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		f3.setFriction(Friction.Normal);
+		f4.setFriction(Friction.Normal);
+		
+		f0.setThing(w1);
+		w1.setField(f0);
+		
+		f1.setThing(b);
+		b.setField(f1);
+		
+		f2.setThing(w2);
+		w2.setField(f2);
+		
+		f3.setThing(w3);
+		w3.setField(f3);
+	}
+	public void initTest28() {
+		fieldMap = new FieldBase[1][4];
+		
+		Worker w1 = new Worker("w1", 10);
+		Worker w2 = new Worker("w2", 10);
+		Box b = new Box("box");
+		SwitchableHole shole = new SwitchableHole("shole");
+		FieldBase f1 = new Field("f1");
+		FieldBase f2 = new Field("f2");
+		Switch sw = new Switch("sw");
+		
+		sw.SetSh(shole);
+		
+		fields.add(shole);
+		fields.add(f1);
+		fields.add(f2);
+		fields.add(sw);
+		
+		workers.add(w1);
+		workers.add(w2);
+		boxes.add(b);
+		
+		fieldMap[0][0] = shole;
+		fieldMap[0][1] = f1;
+		fieldMap[0][2] = f2;
+		fieldMap[0][3] = sw;
+		
+		shole.setNeighbor(Direction.Right, f1);
+		f1.setNeighbor(Direction.Right, f2);
+		f2.setNeighbor(Direction.Right, sw);
+		
+		shole.setFriction(Friction.Normal);
+		f1.setFriction(Friction.Normal);
+		f2.setFriction(Friction.Normal);
+		sw.setFriction(Friction.Normal);
+		
+		shole.setThing(w2);
+		w2.setField(shole);
+		
+		f1.setThing(w1);
+		w1.setField(f1);
+		
+		f2.setThing(b);
+		b.setField(f2);
 	}
 	
 	private void loadtestCommand(String[] parts) {
@@ -1015,6 +1111,12 @@ fieldMap = new FieldBase[1][5];
 				break;
 			case 26:
 				initTest26();
+				break;	
+			case 27:
+				initTest27();
+				break;	
+			case 28:
+				initTest28();
 				break;	
 		}
 	}
