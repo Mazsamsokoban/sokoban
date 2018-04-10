@@ -80,6 +80,12 @@ public class Tester {
 		fields.clear();
 	}
 	
+	/*public void initTest0() {
+		fieldMap = new FieldBase[5][5];
+		
+		for()
+	}*/
+	
 	public void initTest1(){
 		fieldMap = new FieldBase[1][2];
 		
@@ -345,6 +351,7 @@ public class Tester {
 		f2.setFriction(Friction.Normal);
 		f3.setFriction(Friction.Normal);
 		
+		w1.AddPoints(1);
 		f0.setThing(w1);
 		w1.setField(f0);
 		
@@ -934,7 +941,7 @@ public class Tester {
 	}
 	
 	public void initTest27() {
-fieldMap = new FieldBase[1][5];
+		fieldMap = new FieldBase[1][5];
 		
 		Worker w1 = new Worker("w1", 10);
 		Worker w2 = new Worker("w2", 10);
