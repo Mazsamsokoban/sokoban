@@ -1,0 +1,28 @@
+shole:null f1:w sw:box f2:null 
+
+name:shole
+friction:Normal
+thing:null
+open:true
+
+name:sw
+friction:Normal
+thing:box
+on:true
+switchablehole:shole
+box:box
+
+shole:null f1:null sw:w f2:box 
+
+name:shole
+friction:Normal
+thing:null
+open:false
+
+name:sw
+friction:Normal
+thing:w
+on:false
+switchablehole:shole
+box:null
+

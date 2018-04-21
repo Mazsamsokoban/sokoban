@@ -1,0 +1,7 @@
+loadtest 15
+showstate w
+showstate box
+move w right
+showmaze
+showstate box
+showstate w

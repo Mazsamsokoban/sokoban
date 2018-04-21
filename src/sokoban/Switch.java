@@ -1,6 +1,7 @@
 package sokoban;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -90,13 +91,22 @@ public class Switch extends FieldBase{
 	public void setBox(Box b) {
 		box = b;
 	}
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n"
-				+ "friction:" + getFriction() + "\n"
-				+ "thing:" + thing + "\n"
-				+ "on:" + on + "\n"
-				+ "switchablehole:" + swhole + "\n"
-				+ "box:" + box + "\n"
-				);
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout)
+			System.out.println("name:"+ name + "\n"
+					+ "friction:" + getFriction() + "\n"
+					+ "thing:" + thing + "\n"
+					+ "on:" + on + "\n"
+					+ "switchablehole:" + swhole + "\n"
+					+ "box:" + box + "\n"
+					);
+		else
+			w.println("name:"+ name + "\r\n"
+					+ "friction:" + getFriction() + "\r\n"
+					+ "thing:" + thing + "\r\n"
+					+ "on:" + on + "\r\n"
+					+ "switchablehole:" + swhole + "\r\n"
+					+ "box:" + box + "\r\n"
+					);
 	}
 }

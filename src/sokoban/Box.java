@@ -3,6 +3,7 @@ package sokoban;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlAttribute;
@@ -88,14 +89,24 @@ public class Box extends Thing implements Serializable{
 		return pusher.Notify();
 	}
 	
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n"
-				+  "field:" + getField() + "\n"
-				+ "direction:" + getDirection() + "\n"
-				+ "owner:" + owner + "\n"
-				+ "pusher:" + pusher + "\n"
-				//+ "pushforce:" + pushForce + "\n"
-				);
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout) {
+			System.out.println("name:"+ name + "\n"
+					+  "field:" + getField() + "\n"
+					+ "direction:" + getDirection() + "\n"
+					+ "owner:" + owner + "\n"
+					+ "pusher:" + pusher + "\n"
+					//+ "pushforce:" + pushForce + "\n"
+					);
+		}
+		else
+			w.println("name:"+ name + "\r\n"
+					+  "field:" + getField() + "\r\n"
+					+ "direction:" + getDirection() + "\r\n"
+					+ "owner:" + owner + "\r\n"
+					+ "pusher:" + pusher + "\r\n"
+					//+ "pushforce:" + pushForce + "\n"
+					);
 	}
 
 	public Worker getPusher() {

@@ -1,0 +1,4 @@
+loadtest 28
+showstate shole
+move w1 right
+showmaze

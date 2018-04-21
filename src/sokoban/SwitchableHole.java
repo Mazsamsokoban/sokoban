@@ -2,6 +2,7 @@ package sokoban;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
@@ -69,11 +70,18 @@ public class SwitchableHole extends Hole {
 		
 	}
 	
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n"
-				+ "friction:" + getFriction() + "\n"
-				+ "thing:" + thing + "\n"
-				+ "open:" + open + "\n"
-				);
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout)
+			System.out.println("name:"+ name + "\n"
+					+ "friction:" + getFriction() + "\n"
+					+ "thing:" + thing + "\n"
+					+ "open:" + open + "\n"
+					);
+		else
+			w.println("name:"+ name + "\r\n"
+					+ "friction:" + getFriction() + "\r\n"
+					+ "thing:" + thing + "\r\n"
+					+ "open:" + open + "\r\n"
+					);
 	}
 }

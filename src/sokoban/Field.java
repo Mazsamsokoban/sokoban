@@ -2,6 +2,7 @@ package sokoban;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
@@ -51,10 +52,16 @@ public class Field extends FieldBase  {
 	}
 	
 	
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n"
-				+ "friction:" + getFriction() + "\n"
-				+ "thing:" + thing + "\n"
-				);
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout)
+			System.out.println("name:"+ name + "\n"
+					+ "friction:" + getFriction() + "\n"
+					+ "thing:" + thing + "\n"
+					);
+		else
+			w.println("name:"+ name + "\r\n"
+					+ "friction:" + getFriction() + "\r\n"
+					+ "thing:" + thing + "\r\n"
+					);
 	}
 }

@@ -1,0 +1,10 @@
+f1:w1 f2:box f3:w2 obs:null 
+
+f1:null f2:w1 f3:box obs:null 
+
+name:w2
+field:null
+direction:Right
+points:0
+pushforce:10.0
+

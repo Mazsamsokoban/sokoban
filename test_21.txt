@@ -1,0 +1,7 @@
+loadtest 21
+showstate w
+listboxes
+move w right
+showmaze
+showstate w
+listboxes

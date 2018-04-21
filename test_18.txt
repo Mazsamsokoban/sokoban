@@ -1,0 +1,7 @@
+loadtest 18
+showstate shole
+showstate sw
+move w right
+showmaze
+showstate shole
+showstate sw

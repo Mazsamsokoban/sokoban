@@ -1,5 +1,6 @@
 package sokoban;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 import java.util.HashMap;
 
@@ -24,7 +25,7 @@ public abstract class FieldBase{
 	
 	private HashMap<Direction, FieldBase> neighbours;
 	
-	public abstract void printState(PrintStream w);
+	public abstract void printState(PrintWriter w, boolean stdout);
 	
 	public FieldBase() {
 		neighbours = new HashMap<Direction, FieldBase>();

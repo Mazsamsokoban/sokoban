@@ -1,0 +1,28 @@
+f1:w f2:box obs:null 
+
+name:w
+field:f1
+direction:Neutral
+points:0
+pushforce:10.0
+
+name:box
+field:f2
+direction:Neutral
+owner:null
+pusher:null
+
+f1:w f2:box obs:null 
+
+name:w
+field:f1
+direction:Right
+points:0
+pushforce:10.0
+
+name:box
+field:f2
+direction:Right
+owner:null
+pusher:w
+

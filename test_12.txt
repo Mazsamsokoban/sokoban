@@ -1,0 +1,6 @@
+loadtest 12
+showstate w
+showstate box
+showmaze
+showstate w
+showstate box

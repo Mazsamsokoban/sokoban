@@ -1,0 +1,4 @@
+loadtest 26
+showstate f1
+put w honey
+showstate f1

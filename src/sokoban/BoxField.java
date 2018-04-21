@@ -1,6 +1,7 @@
 package sokoban;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 public class BoxField extends Field {
 	private Worker owner;
@@ -80,11 +81,18 @@ public class BoxField extends Field {
 		box = b;
 	}
 	
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n"
-				+ "friction:" + getFriction() + "\n"
-				+ "thing:" + thing + "\n"
-				+ "box:" + box + "\n"
-				);
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout)
+			System.out.println("name:"+ name + "\n"
+					+ "friction:" + getFriction() + "\n"
+					+ "thing:" + thing + "\n"
+					+ "box:" + box + "\n"
+					);
+		else
+			w.println("name:"+ name + "\r\n"
+					+ "friction:" + getFriction() + "\r\n"
+					+ "thing:" + thing + "\r\n"
+					+ "box:" + box + "\r\n"
+					);
 	}
 }
