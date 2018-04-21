@@ -1,9 +1,15 @@
 package sokoban;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 //tesztelõ osztály a viselkedések bemutatására
@@ -11,7 +17,8 @@ public class Tester {
 	Outputter op;
 	Game game;
 	Maze m;
-	PrintStream printer;
+	PrintWriter printer = null;
+	boolean stdout = false;
 	
 	ArrayList<Worker> workers;
 	ArrayList<Box> boxes;
@@ -23,20 +30,32 @@ public class Tester {
 	BufferedReader br = new BufferedReader(isr);
 	
 	public Tester() {
-		printer = System.out;
 		workers = new ArrayList<Worker>();
 		boxes = new ArrayList<Box>();
 		fields = new ArrayList<FieldBase>();
 	} 
 	
 	
-	public void processCommand(String command) {
+	public boolean processCommand(String command, String fileName) {
+		if(fileName != null)
+			try {
+				printer = new PrintWriter(new FileWriter(fileName + "_result.txt", true));
+				stdout = false;
+			} catch (FileNotFoundException e) {
+				System.out.println("Nem létezik a megadott fájl.");
+				return false;
+			}
+			catch (IOException e) {
+				return false;
+			}
+		else
+			stdout = true;
 		String parts[] = command.split(" ");
 		switch (parts[0]) {
 			case "loadtest":
 				loadtestCommand(parts);
-				System.out.println("\nA betöltött tesztpálya:");
-				showmazeCommand();
+				if(fileName == null) System.out.println("A betöltött tesztpálya:");
+				showmazeCommand(printer);
 				break;
 		
 			case "move":										//kész
@@ -46,15 +65,14 @@ public class Tester {
 			case "put":
 				putCommand(parts);
 				break;	
-			
 			case "listboxes":									//kész
 				for(Box b : boxes)
-					b.printState(printer);
+					b.printState(printer, stdout);
 				break;
 			
 			case "listworkers":									// kész
 				for(Worker w : workers)
-					w.printState(printer);
+					w.printState(printer, stdout);
 				break;
 			
 			case "showstate":									//kész
@@ -62,13 +80,16 @@ public class Tester {
 				break;
 			
 			case "showmaze":									//kész
-				showmazeCommand();
+					showmazeCommand(printer);
 				break;
-			
+			case "exit":
+				printer.close();
+				return true;
 			default:
 				System.out.println("Nincs ilyen parancs.");
 		}
-		
+		if(printer!=null) printer.close();
+		return false; //nem lépünk ki
 	}
 		
 	
@@ -1128,14 +1149,25 @@ public class Tester {
 		}
 	}
 
-	private void showmazeCommand() {
+	private void showmazeCommand(PrintWriter printer) {
 		for(int i = 0; i < fieldMap.length; ++i) {
 			for(int j = 0; j < fieldMap[i].length; ++j) {
 				FieldBase f = fieldMap[i][j];
-				System.out.print(f + ":" + f.getThing()+ " ");
+				if(stdout)
+					System.out.print(f + ":" + f.getThing()+ " ");
+				else
+					printer.print(f + ":" + f.getThing()+ " ");
 			}
-			System.out.println("");
+			if(stdout)
+				System.out.println("");
+			else
+				printer.println("");
+			
 		}
+		if(stdout)
+			System.out.println("");
+		else
+			printer.println("");
 	}
 
 	public void moveCommand(String[] parts) {
@@ -1202,21 +1234,21 @@ public class Tester {
 			
 		for (FieldBase f : fields) {
 			if (f.name.equals(parts[1])) {
-				f.printState(printer);
+				f.printState(printer, stdout);
 				return;
 			}
 		}
 		
 		for (Box b : boxes) {
 			if (b.name.equals(parts[1])) {
-				b.printState(printer);
+				b.printState(printer, stdout);
 				return;
 			}
 		}
 		
 		for (Worker w : workers) {
 			if (w.name.equals(parts[1])) {
-				w.printState(printer);
+				w.printState(printer, stdout);
 				return;
 			}
 		}

@@ -1,6 +1,7 @@
 package sokoban;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 //falat vagy oszlopot reprezentál
 public class Obstacle extends FieldBase {
@@ -21,7 +22,10 @@ public class Obstacle extends FieldBase {
 		return false;
 	}
 	
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n");
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout)
+			System.out.println("name:"+ name + "\n");
+		else
+			w.println("name:"+ name + "\r\n");
 	}
 }

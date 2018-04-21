@@ -1,0 +1,6 @@
+loadtest 24
+showstate f1
+showstate f2
+showstate f3
+move w right
+showmaze

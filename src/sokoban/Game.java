@@ -4,11 +4,14 @@ import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -98,10 +101,13 @@ public class Game {
 		
 		
 		
-		
 		InputStreamReader isr = new InputStreamReader(System.in);
 		BufferedReader br = new BufferedReader(isr);
-		String command ;
+		String command;
+		
+		Scanner scanner = new Scanner(System.in);
+		Scanner fileScanner = null;
+		
 		
 		
 		System.out.println("KILLER SOKOBAN játék" + 
@@ -112,18 +118,62 @@ public class Game {
 		Tester tester = new Tester();
 		Game game = new Game();
 		game.tester = tester;
-	
 		
-		System.out.println("\n\nA menübe való továbblépéshez nyomjon ENTER-t!\n");
-		br.readLine();
+		boolean validChoice = false;
+		boolean exit = false;
+		String choice = null;
 		
-		
-		while(true) {
-			System.out.println("Adjon meg egy parancsot!");
+		System.out.println("Fájlból beolvasva vagy manuálisan szeretne tesztelni? (file/man)");
+		while(!validChoice) {
 			
-			command = br.readLine();
+			choice = scanner.nextLine();
 			
-			tester.processCommand(command);
+			if(choice.equals("file") || choice.equals("man")) 
+				validChoice = true;
+			else
+				System.out.println("Nincs ilyen lehetõség, válasszon újra! (file/man)");
+				
 		}
+		
+		if(choice.equals("file")) {
+			while(!exit) {
+				System.out.println("\nAdja meg a tesztfájl nevét! (test_x.txt)\n(Kilépés: exit)");
+				String fileName = scanner.nextLine();
+				if(fileName.equals("exit"))
+					exit = true;
+				else {
+					try {
+						File testFile = new File(fileName);
+						fileScanner = new Scanner(testFile);
+						System.out.println("A kiadott parancsok:");
+						String notxt = null;
+						while(fileScanner.hasNext()) {
+							String line = fileScanner.nextLine();
+							System.out.println(line);
+							notxt = fileName.substring(0, fileName.length()-4);
+							exit = tester.processCommand(line, notxt);
+						}
+						System.out.println("A teszt kimenete a teszt_"+ notxt.split("_")[1]+ "_result.txt fájlban található.");
+						
+					}
+					catch(FileNotFoundException e) {
+						System.out.println("Nincs ilyen teszteset.");
+					}
+				}
+			}
+		}
+		else {
+			while(!exit) {
+				
+				System.out.println("Adjon meg egy parancsot! (Kilépés: exit)");
+				
+				command = scanner.nextLine();
+				
+				exit = tester.processCommand(command, null);
+			}
+		}
+		scanner.close();
+		fileScanner.close();
+		
 	}
 }

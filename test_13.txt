@@ -1,0 +1,7 @@
+loadtest 13
+listworkers
+showstate box
+move w2 right
+showmaze
+listworkers
+showstate box

@@ -1,0 +1,3 @@
+loadtest 7
+move w1 right
+showmaze

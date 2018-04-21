@@ -1,0 +1,10 @@
+f1:w 
+
+name:f1
+friction:Normal
+thing:w
+
+name:f1
+friction:Honey
+thing:w
+

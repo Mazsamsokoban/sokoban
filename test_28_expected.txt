@@ -1,0 +1,9 @@
+shole:w2 f1:w1 f2:box sw:null 
+
+name:shole
+friction:Normal
+thing:w2
+open:false
+
+shole:null f1:null f2:w1 sw:box 
+

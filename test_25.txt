@@ -1,0 +1,4 @@
+loadtest 25
+move w1 right
+showmaze
+showstate w2

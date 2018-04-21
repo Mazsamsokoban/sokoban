@@ -1,0 +1,7 @@
+loadtest 14
+listworkers
+listboxes
+move w1 right
+showmaze
+listworkers
+listboxes

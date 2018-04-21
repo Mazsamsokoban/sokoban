@@ -1,4 +1,0 @@
-* Ne legyenek ekezetes kommentek
-* kod es dokumentacio is kell
-* letre kell hozni az objektumokat
-* ne csak system out

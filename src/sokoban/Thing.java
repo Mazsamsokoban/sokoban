@@ -1,6 +1,7 @@
 package sokoban;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
 
 
@@ -36,7 +37,7 @@ public abstract class Thing{
 	
 	abstract Worker Notify();
 	
-	public abstract void printState(PrintStream w);
+	public abstract void printState(PrintWriter w, boolean stdout);
 	
 	
 	//menetirány visszaadása

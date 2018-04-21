@@ -1,0 +1,16 @@
+f0:w f1:box1 f2:box2 f3:box3 f4:null 
+
+name:f1
+friction:Honey
+thing:box1
+
+name:f2
+friction:Honey
+thing:box2
+
+name:f3
+friction:Normal
+thing:box3
+
+f0:w f1:box1 f2:box2 f3:box3 f4:null 
+

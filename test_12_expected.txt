@@ -1,0 +1,28 @@
+f1:w bf:box f2:null 
+
+name:w
+field:f1
+direction:Neutral
+points:1
+pushforce:10.0
+
+name:box
+field:bf
+direction:Neutral
+owner:w
+pusher:null
+
+f1:w bf:box f2:null 
+
+name:w
+field:f1
+direction:Neutral
+points:1
+pushforce:10.0
+
+name:box
+field:bf
+direction:Neutral
+owner:w
+pusher:null
+

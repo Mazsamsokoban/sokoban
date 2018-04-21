@@ -1,6 +1,7 @@
 package sokoban;
 
 import java.io.PrintStream;
+import java.io.PrintWriter;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -96,12 +97,21 @@ public class Worker extends Thing implements Steppable {
 		return this;
 	}
 	
-	public void printState(PrintStream w) {
-		w.println("name:"+ name + "\n"
-				+  "field:" + getField() + "\n"
-				+ "direction:" + getDirection() + "\n"
-				+ "points:" + points + "\n"
-				+ "pushforce:" + pushForce + "\n"
-				);
+	public void printState(PrintWriter w, boolean stdout) {
+		if(stdout) {
+			System.out.println("name:"+ name + "\n"
+					+  "field:" + getField() + "\n"
+					+ "direction:" + getDirection() + "\n"
+					+ "points:" + points + "\n"
+					+ "pushforce:" + pushForce + "\n"
+					);
+		}
+		else
+			w.println("name:"+ name + "\r\n"
+					+  "field:" + getField() + "\r\n"
+					+ "direction:" + getDirection() + "\r\n"
+					+ "points:" + points + "\r\n"
+					+ "pushforce:" + pushForce + "\r\n"
+					);
 	}
 }
