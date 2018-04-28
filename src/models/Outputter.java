@@ -1,11 +1,11 @@
-package sokoban;
+package models;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 
 
-//kiírást végzõ osztály
+//kiírást végzõ osztály, A PROTOTÍPUSHOZ NEM HASZNÁLJUK
 public class Outputter extends  HashMap<Object, String>{
 	HashMap<String, Object> objects;
 	private int tab;

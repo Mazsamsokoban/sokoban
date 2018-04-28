@@ -1,28 +1,27 @@
-package sokoban;
-import java.io.PrintStream;
+package models;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.util.HashMap;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-
-// mezõk õsosztálya
-@XmlTransient
-@XmlSeeAlso({Box.class, Worker.class})
+/**
+ * Mezõk õsosztálya
+ */
 public abstract class FieldBase{
-	@XmlAttribute(name = "name")
+	
 	protected String name = "";
 	
-	@XmlElement
+	/**
+	 * A mezõn lévõ dolog
+	 */
 	protected Thing thing;
-	@XmlElement
+	
+	/**
+	 * A mezõ súrlódása
+	 */
 	private Friction friction;
 	
-	
+	/**
+	 * A mezõ szomszédai
+	 */
 	private HashMap<Direction, FieldBase> neighbours;
 	
 	public abstract void printState(PrintWriter w, boolean stdout);
@@ -32,30 +31,52 @@ public abstract class FieldBase{
 		friction = Friction.Normal;
 	}
 	
+	/**
+	 * Beállítja a mezõn lévõ dolgot
+	 * @param t a mezõn lévõ dolog
+	 */
 	public void setThing(Thing t) {
 		thing = t;
 	}
 	
+	/**
+	 * @return a mezõn lévõ dolog
+	 */
 	public Thing getThing() {
 		return thing;
 	}
 	
+	/**
+	 * Beállítja a súrlódást
+	 * @param f a súrlódás
+	 */
 	public void setFriction(Friction f) {
 		friction = f;
 	}
 	
+	/**
+	 * @return A mezõ súrlódása
+	 */
 	public Friction getFriction() {
 		return friction;
 	}
+	
 	//absztrakt fogadó függvények
 	public abstract boolean Accept(Box b);
 	
 	public abstract boolean Accept(Worker w);
 	
+	/**
+	 * Leveszi a mezõn lévõ dolgot
+	 */
 	public void Remove() {
 		thing = null;
 	}
-	//beállítja kölcsönösen a paraméterrel a szomszédságot
+	/**
+	 * Beállítja kölcsönösen a paraméterrel a szomszédságot
+	 * @param d melyik irányban
+	 * @param f ki a szomszéd
+	 */
 	public void setNeighbor(Direction d, FieldBase f) {
 		neighbours.put(d, f);
         Direction n = null;
@@ -71,7 +92,11 @@ public abstract class FieldBase{
             f.setNeighbor(n, this);
     }
 	
-	//visszaadja a megadott irányban lévõ szomszéd mezõt
+	/**
+	 * visszaadja a megadott irányban lévõ szomszéd mezõt
+	 * @param d a kérdéses irány
+	 * @return a szomszéd mezõ
+	 */
 	public FieldBase getNeighbor(Direction d) {
 		return neighbours.get(d);
 	}

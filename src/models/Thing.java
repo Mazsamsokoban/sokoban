@@ -1,26 +1,25 @@
-package sokoban;
+package models;
 
-import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.Serializable;
 
-
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlTransient;
-
-
-@XmlTransient
-@XmlSeeAlso({Field.class, SwitchableHole.class, Switch.class})
+/**
+ * A mezõkön lévõ dolgok õse
+ */
 public abstract class Thing{
-	@XmlAttribute(name = "direction")
+	/**
+	 * A mozgás iránya
+	 */
 	private Direction d;
+	/**
+	 * A tárolómezõ
+	 */
 	private FieldBase field;
+	/**
+	 * tolóerõ
+	 */
 	protected float pushForce;
 	
-	@XmlAttribute(name = "name")
+	
 	protected String name = "";
 	
 	public Thing() {
@@ -40,30 +39,45 @@ public abstract class Thing{
 	public abstract void printState(PrintWriter w, boolean stdout);
 	
 	
-	//menetirány visszaadása
+	/**
+	 * @return menetirány visszaadása
+	 */
 	public Direction getDirection()
 	{
 		return d;
 	}
 	
+	/**
+	 * Menetirány beállítása
+	 */
 	public void setDirection(Direction d) {
 		this.d = d;
 	}
 	
-	
+	/**
+	 * Tárolómezõ beállítása
+	 */
 	public void setField(FieldBase f) {
 		field = f;
 	}
 	
-	@XmlElement
+	/**
+	 * @return a tárolómezõ
+	 */
 	public FieldBase getField(){
 		return field;
 	}
 	
+	/**
+	 * Tolóerõ beállítása
+	 */
 	public void setPushForce(float pf) {
 		pushForce = pf;
 	}
 	
+	/**
+	 * @return a tolóerõ
+	 */
 	public float getPushForce(){
 		return pushForce;
 	}
