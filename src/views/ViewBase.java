@@ -9,11 +9,11 @@ import javax.swing.JComponent;
 public abstract class ViewBase extends JComponent{
 	public int x;
 	public int y;
+	public float mezomeret;
 	ImageIcon img;
 	
 	public ViewBase(int _x, int _y, Image _img) {
 		img = new ImageIcon(new ImageIcon(_img).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-		
 	}
 	
 	@Override
