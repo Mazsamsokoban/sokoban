@@ -30,6 +30,9 @@ public class GameController extends KeyAdapter{
 			case KeyEvent.VK_RIGHT:
 				window.movePlayer(1, Direction.Right);
 				break;
+			case 'w':
+				window.movePlayer(1, Direction.Up);
+				break;
 			default:
 				break;
 		}
