@@ -6,7 +6,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class BoxView extends ViewBase {
-	ImageIcon img;
+	private ImageIcon img;
 	
 	public BoxView(int _x, int _y, Image _img) {
 		super(_x, _y);

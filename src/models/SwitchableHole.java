@@ -8,6 +8,8 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import views.FieldView;
+
 /**
  * Csapóajtót reprezentáló osztály
  */
@@ -24,6 +26,11 @@ public class SwitchableHole extends Hole {
 	}
 	public SwitchableHole() {
 		open = false;
+	}
+	public SwitchableHole(FieldView _view) {
+		super(_view);
+		open = false;
+		
 	}
 	
 	/**

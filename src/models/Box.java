@@ -3,10 +3,14 @@ package models;
 import java.io.PrintWriter;
 import java.io.Serializable;
 
+import views.BoxView;
+
 /**
  * A ládákat reprezentáló osztály
  */
 public class Box extends Thing implements Serializable{
+	private BoxView view;
+	
 	/**
 	 * A ládát elõször betoló munkás
 	 */
@@ -26,6 +30,10 @@ public class Box extends Thing implements Serializable{
 	
 	//Box kontruktor
 	public Box() {
+	}
+	
+	public Box(BoxView _view) {
+		_view = view;
 	}
 	
 	/**

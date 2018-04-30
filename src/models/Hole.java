@@ -2,6 +2,8 @@ package models;
 
 import java.io.PrintWriter;
 
+import views.FieldView;
+
 /**
  * A lyukakat reprezentáló osztály
  */
@@ -13,6 +15,9 @@ public class Hole extends FieldBase {
 	
 	public Hole() {
 		
+	}
+	public Hole(FieldView _view) {
+		super(_view);
 	}
 	
 	/**

@@ -2,6 +2,8 @@ package models;
 
 import java.io.PrintWriter;
 
+import views.FieldView;
+
 /**
  * A kapcsolókat reprezentáló osztály
  */
@@ -27,6 +29,9 @@ public class Switch extends FieldBase{
 	}
 	
 	public Switch() {
+	}
+	public Switch(FieldView _view) {
+		super(_view);
 	}
 	
 	/**

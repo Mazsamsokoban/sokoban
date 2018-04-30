@@ -32,6 +32,10 @@ public class Maze {
 	public void init() {
 	}
 	
+	
+	public void UpdateAll() {
+		
+	}
 	/**
 	 * ellenõrzi, hogy teljesülnek-e a játék befejezésének feltételei, és ez alapján tér vissza
 	 * @return vége van.e a játéknak

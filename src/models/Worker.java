@@ -2,11 +2,13 @@ package models;
 
 import java.io.PrintWriter;
 
+import views.WorkerView;
+
 /**
  * A taktárépületben dolgozó munkások
  */
 public class Worker extends Thing implements Steppable {
-	
+	private WorkerView view;
 	/**
 	 * A munkás pontjai
 	 */
@@ -20,6 +22,11 @@ public class Worker extends Thing implements Steppable {
 	}
 	
 	public Worker() {
+		points = 0;
+		pushForce = 10;
+	}
+	public Worker(WorkerView _view) {
+		view = _view;
 		points = 0;
 		pushForce = 10;
 	}

@@ -2,11 +2,13 @@ package models;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
+import views.FieldView;
+
 /**
  * Mezõk õsosztálya
  */
 public abstract class FieldBase{
-	
+	private FieldView view;
 	protected String name = "";
 	
 	/**
@@ -27,6 +29,12 @@ public abstract class FieldBase{
 	public abstract void printState(PrintWriter w, boolean stdout);
 	
 	public FieldBase() {
+		neighbours = new HashMap<Direction, FieldBase>();
+		friction = Friction.Normal;
+	}
+	
+	public FieldBase(FieldView _view) {
+		view = _view;
 		neighbours = new HashMap<Direction, FieldBase>();
 		friction = Friction.Normal;
 	}

@@ -1,6 +1,8 @@
 package models;
 
 import java.io.PrintWriter;
+
+import views.FieldView;
 /**
  * Az egyszerû mezõket reprezentáló osztály
  */
@@ -10,6 +12,9 @@ public class Field extends FieldBase  {
 	}
 	
 	public Field() {
+	}
+	public Field(FieldView _view) {
+		super(_view);
 	}
 	
 	/**

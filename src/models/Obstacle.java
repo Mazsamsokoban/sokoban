@@ -2,6 +2,8 @@ package models;
 
 import java.io.PrintWriter;
 
+import views.FieldView;
+
 /**
  * Falat vagy oszlopot reprezentáló osztály
  */
@@ -11,6 +13,8 @@ public class Obstacle extends FieldBase {
 		name = n;
 	}
 	public Obstacle() {
+	}
+	public Obstacle(FieldView _view) {
 	}
 	
 	/**

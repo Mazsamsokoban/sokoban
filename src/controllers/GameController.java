@@ -17,6 +17,7 @@ public class GameController extends KeyAdapter{
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
+		
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_UP:
 				window.movePlayer(1, Direction.Up);

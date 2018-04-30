@@ -2,6 +2,7 @@ package components;
 
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -22,7 +23,8 @@ import controllers.GameController;
 import models.Direction;
 import models.Worker;
 import views.BoxView;
-import views.SwitchableHoleView;
+import views.ChangingFieldView;
+import views.FieldView;
 import views.ViewBase;
 import views.WorkerView;
 
@@ -32,16 +34,13 @@ public class GameWindow extends JFrame {
 	
 	Worker player1;
 	Worker player2;
-	
-	BoxView w1;
 	WorkerView w;
-	SwitchableHoleView sw;
 	
 	public GameWindow() {
 		super("Sokoban");
 		setDefaultLookAndFeelDecorated(true);
 		setExtendedState(GameWindow.MAXIMIZED_BOTH); 
-		setSize(600,400);
+		//setSize(600,400);
 		initComponents();
 	}
 	
@@ -49,18 +48,43 @@ public class GameWindow extends JFrame {
 		//this.setLayout(new BorderLayout());
 		player1 = new Worker();
 		player2 = new Worker();
-		try {
-			w1 = new BoxView(100 , 100, ImageIO.read(new File("box.png")));
-			w = new WorkerView(500, 500);
+		JPanel panel = new JPanel(null);
 		
+		try {
+			panel.add(w = new WorkerView(400, 500, new Color(244, 178, 26)));
+			panel.add(w = new WorkerView(200, 200, Color.CYAN));
+			panel.add(new BoxView(300, 200, ImageIO.read(new File("box.png"))));
+			panel.add(new BoxView(100, 500, ImageIO.read(new File("cyanbox.png"))));
+			panel.add(new BoxView(300, 500, ImageIO.read(new File("yellowbox.png"))));
+			panel.add(new BoxView(300, 200, ImageIO.read(new File("box.png"))));
+			panel.add(new FieldView(100, 100, ImageIO.read(new File("hole.png"))));
+			panel.add(new FieldView(500, 100, ImageIO.read(new File("boxfield.png"))));
+			panel.add(new FieldView(500, 400, ImageIO.read(new File("wall.png"))));
+			panel.add(new FieldView(100, 300, ImageIO.read(new File("wall.png"))));
+			panel.add(new FieldView(200, 300, ImageIO.read(new File("wall.png"))));
+			panel.add(new FieldView(400, 400, ImageIO.read(new File("wall.png"))));
+			
+			for(int i = 100; i<=500; i+=100) {
+				for(int j = 100; j<=500; j+=100) {
+					panel.add(new FieldView(i, j, ImageIO.read(new File("floor.png"))));
+				}
+			}
+			for(int i = 0; i <= 600; i+=100) {
+				panel.add(new FieldView(i, 0, ImageIO.read(new File("wall.png"))));
+				panel.add(new FieldView(0, i, ImageIO.read(new File("wall.png"))));
+				panel.add(new FieldView(600, i, ImageIO.read(new File("wall.png"))));
+				panel.add(new FieldView(i, 600, ImageIO.read(new File("wall.png"))));
+			}
+			
+			
+				
 			
 			//sw = new SwitchableHoleView(700, 700, ImageIO.read(new File("box.png")), ImageIO.read(new File("")));
 		} catch (IOException e) {
 			System.out.println("Nem sikerült beolvasni egy képet!");
 		}
-		JPanel panel = new JPanel(null);
-		panel.add(w);
-		panel.add(w1);
+		
+		
 		
 		Component[] comp = panel.getComponents();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
