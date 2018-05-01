@@ -21,6 +21,9 @@ public abstract class ViewBase extends JComponent{
 		y = _y;
 	}
 	
+	public Dimension getPos() {
+		return new Dimension(x,y);
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();

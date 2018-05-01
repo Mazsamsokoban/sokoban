@@ -9,13 +9,15 @@ import views.FieldView;
  */
 public class Obstacle extends FieldBase {
 	
+	public Obstacle(FieldView _view) {
+		super(_view);
+	}
 	public Obstacle(String n) {
 		name = n;
 	}
 	public Obstacle() {
 	}
-	public Obstacle(FieldView _view) {
-	}
+	
 	
 	/**
 	 * "Fogadja", a rá érkezõ dobozt, nem engedi a mezõre
@@ -41,5 +43,10 @@ public class Obstacle extends FieldBase {
 			System.out.println("name:"+ name + "\n");
 		else
 			w.println("name:"+ name + "\r\n");
+	}
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
 	}
 }

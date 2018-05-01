@@ -47,4 +47,9 @@ public class Hole extends FieldBase {
 		else
 			w.println("name:"+ name + "\r\n");
 	}
+
+	@Override
+	public void update() {
+		
+	}
 }

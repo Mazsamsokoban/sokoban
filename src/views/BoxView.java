@@ -5,7 +5,7 @@ import java.awt.Image;
 
 import javax.swing.ImageIcon;
 
-public class BoxView extends ViewBase {
+public class BoxView extends MovingObjectView {
 	private ImageIcon img;
 	
 	public BoxView(int _x, int _y, Image _img) {
@@ -20,5 +20,6 @@ public class BoxView extends ViewBase {
 		super.paintComponent(g);
 		img.paintIcon(this, g, x, y);
 	}
+	
 	
 }

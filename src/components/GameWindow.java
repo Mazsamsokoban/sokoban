@@ -21,6 +21,7 @@ import javax.swing.JPanel;
 
 import controllers.GameController;
 import models.Direction;
+import models.Maze;
 import models.Worker;
 import views.BoxView;
 import views.ChangingFieldView;
@@ -31,7 +32,7 @@ import views.WorkerView;
 
 
 public class GameWindow extends JFrame {
-	
+	private Maze currentLevel;
 	Worker player1;
 	Worker player2;
 	WorkerView w;
@@ -49,8 +50,8 @@ public class GameWindow extends JFrame {
 		player1 = new Worker();
 		player2 = new Worker();
 		JPanel panel = new JPanel(null);
-		
-		try {
+		currentLevel = new Maze(panel);
+		/*try {
 			panel.add(w = new WorkerView(400, 500, new Color(244, 178, 26)));
 			panel.add(w = new WorkerView(200, 200, Color.CYAN));
 			panel.add(new BoxView(300, 200, ImageIO.read(new File("box.png"))));
@@ -82,7 +83,7 @@ public class GameWindow extends JFrame {
 			//sw = new SwitchableHoleView(700, 700, ImageIO.read(new File("box.png")), ImageIO.read(new File("")));
 		} catch (IOException e) {
 			System.out.println("Nem sikerült beolvasni egy képet!");
-		}
+		}*/
 		
 		
 		
@@ -128,10 +129,18 @@ public class GameWindow extends JFrame {
 	}
 	public static void main(String[] args) throws IOException {
 		GameWindow window = new GameWindow();
-		window.addKeyListener(new GameController(window));
+		window.addKeyListener(new GameController(window, window.getWorker1(), window.getWorker2()));
 		window.setVisible(true);
 		window.repaint();
 		window.revalidate();
+	}
+
+	private Worker getWorker1() {
+		return currentLevel.worker1;
+	}
+
+	private Worker getWorker2() {
+		return currentLevel.worker2;
 	}
 
 	

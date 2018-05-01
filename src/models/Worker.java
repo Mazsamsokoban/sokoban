@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Component;
 import java.io.PrintWriter;
 
 import views.WorkerView;
@@ -104,6 +105,7 @@ public class Worker extends Thing implements Steppable {
 	public void Delete() {
 		getField().setThing(null);
 		setField(null);
+		view.disappear();
 	}
 	
 	/**
@@ -138,5 +140,14 @@ public class Worker extends Thing implements Steppable {
 					+ "points:" + points + "\r\n"
 					+ "pushforce:" + pushForce + "\r\n"
 					);
+	}
+
+	@Override
+	public void update(int x, int y) {
+		view.updatePosition(x, y);
+	}
+
+	public WorkerView getView() {
+		return view;
 	}
 }

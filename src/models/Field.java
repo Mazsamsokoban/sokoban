@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Dimension;
 import java.io.PrintWriter;
 
 import views.FieldView;
@@ -69,5 +70,10 @@ public class Field extends FieldBase  {
 					+ "friction:" + getFriction() + "\r\n"
 					+ "thing:" + thing + "\r\n"
 					);
+	}
+	
+	public void update() {
+		Dimension pos = getView().getPos();
+		if(thing!=null)thing.update(pos.width, pos.height);
 	}
 }

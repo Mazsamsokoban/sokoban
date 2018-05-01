@@ -45,8 +45,8 @@ public class Game {
 	 * Elkezdi a játékot, létrehozza a raktárépületet
 	 */
 	public void startGame() {
-		currentLevel = new Maze();
-		currentLevel.tester = tester;
+		//currentLevel = new Maze();
+		//currentLevel.tester = tester;
 		currentLevel.setGame(this);
 		tester.m = currentLevel;
 		currentLevel.init();
