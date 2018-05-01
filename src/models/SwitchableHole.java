@@ -1,4 +1,4 @@
-package sokoban;
+package models;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -8,9 +8,16 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
+import views.FieldView;
+
+/**
+ * Csapóajtót reprezentáló osztály
+ */
 public class SwitchableHole extends Hole {
-	@XmlAttribute
+	
+	/**
+	 * nyitva van-e a csapóajtó
+	 */
 	private boolean open;
 	
 	public SwitchableHole(String n) {
@@ -20,8 +27,15 @@ public class SwitchableHole extends Hole {
 	public SwitchableHole() {
 		open = false;
 	}
+	public SwitchableHole(FieldView _view) {
+		super(_view);
+		open = false;
+		
+	}
 	
-	//kinyílik, és ha van rajta valami, akkor ledobja
+	/**
+	 * kinyílik, és ha van rajta valami, akkor ledobja
+	 */
 	public void setOpen() {
 
 		open = !open;
@@ -33,11 +47,17 @@ public class SwitchableHole extends Hole {
 		}
 	}
 	
+	/**
+	 * 
+	 * @return nyitva van-e
+	 */
 	public boolean isOpen() {
 		return open;
 	}
 	
-	//fogadja a rá érkezõ dobozt, ha nyitva van, akkor ledobja
+	/**
+	 * fogadja a rá érkezõ dobozt, ha nyitva van, akkor ledobja
+	 */
 	public boolean Accept(Box b) {
 		if (open) {
 			return super.Accept(b);
@@ -53,7 +73,9 @@ public class SwitchableHole extends Hole {
 		}			
 	}
 	
-	//fogadja a rá érkezõ munkást, ha nyitva van, akkor ledobja
+	/**
+	 * fogadja a rá érkezõ munkást, ha nyitva van, akkor ledobja
+	 */
 	public boolean Accept(Worker w) {
 		if (open) {
 			return super.Accept(w);
@@ -70,6 +92,9 @@ public class SwitchableHole extends Hole {
 		
 	}
 	
+	/**
+	 * Kiírja az állapotát
+	 */
 	public void printState(PrintWriter w, boolean stdout) {
 		if(stdout)
 			System.out.println("name:"+ name + "\n"

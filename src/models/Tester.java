@@ -1,9 +1,11 @@
-package sokoban;
+package models;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,7 +14,9 @@ import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
-//tesztelõ osztály a viselkedések bemutatására
+/**
+ * tesztelõ osztály a viselkedések bemutatására
+ */
 public class Tester {
 	Outputter op;
 	Game game;
@@ -21,13 +25,11 @@ public class Tester {
 	boolean stdout = false;
 	
 	ArrayList<Worker> workers;
-	ArrayList<Box> boxes;
+	ArrayList<Box> boxes;				//az eltárolt ládák, munkások és mezõk
 	ArrayList<FieldBase> fields;
 	FieldBase fieldMap[][];
 	
-	FieldBase mazeImage;
-	InputStreamReader isr = new InputStreamReader(System.in);
-	BufferedReader br = new BufferedReader(isr);
+	
 	
 	public Tester() {
 		workers = new ArrayList<Worker>();
@@ -35,11 +37,17 @@ public class Tester {
 		fields = new ArrayList<FieldBase>();
 	} 
 	
-	
+
+	/**
+	 * a megadott parancsot feldolgozza
+	 * @param command a parancs
+	 * @param fileName a bemeneti fájl
+	 * @return kilépünk-e
+	 */
 	public boolean processCommand(String command, String fileName) {
 		if(fileName != null)
 			try {
-				printer = new PrintWriter(new FileWriter(fileName + "_result.txt", true));
+				printer = new PrintWriter(new FileWriter(fileName + "_result.txt", true));		//ide írjuk a kimenetet
 				stdout = false;
 			} catch (FileNotFoundException e) {
 				System.out.println("Nem létezik a megadott fájl.");
@@ -52,48 +60,91 @@ public class Tester {
 			stdout = true;
 		String parts[] = command.split(" ");
 		switch (parts[0]) {
-			case "loadtest":
+			case "loadtest":							//tesztpálya betöltése és a raktárépület kiírása
 				loadtestCommand(parts);
 				if(fileName == null) System.out.println("A betöltött tesztpálya:");
 				showmazeCommand(printer);
 				break;
 		
-			case "move":										//kész
+			case "move":										
 				moveCommand(parts);
 				break;
 			
 			case "put":
 				putCommand(parts);
 				break;	
-			case "listboxes":									//kész
+			case "listboxes":									
 				for(Box b : boxes)
 					b.printState(printer, stdout);
 				break;
 			
-			case "listworkers":									// kész
+			case "listworkers":									
 				for(Worker w : workers)
 					w.printState(printer, stdout);
 				break;
 			
-			case "showstate":									//kész
+			case "showstate":									
 				showstateCommand(parts);
 				break;
 			
-			case "showmaze":									//kész
+			case "showmaze":									
 					showmazeCommand(printer);
 				break;
 			case "exit":
-				printer.close();
+				if(printer != null)printer.close();
 				return true;
 			default:
 				System.out.println("Nincs ilyen parancs.");
 		}
 		if(printer!=null) printer.close();
-		return false; //nem lépünk ki
+		return false; 
 	}
 		
-	
+	/**
+	 * kimenet és várt kiemenet összahasonlítása
+	 * @param patha kapott kimeneti fájl
+	 * @param pathb elvárt kimeneti fájl
+	 */
+	public void compareWithExpected(String patha, String pathb)
+	{
+		int i = 1;
+		File a = new File(patha);
+		File b = new File(pathb);
+		BufferedReader readera = null;
+		BufferedReader readerb = null;
+		try {
+			readera = new BufferedReader(new FileReader(a));
+			readerb = new BufferedReader(new FileReader(b));
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String linea = null;
+		String lineb = null;
+		boolean hibas = false;
+		try 
+		{
+			while ((linea = readera.readLine()) != null && (lineb = readerb.readLine())!= null) 
+			{
+				if (!linea.equals(lineb))
+				{
+					hibas = true;
+					System.out.println(i + ". sor hibas");		
+				}
 
+				i++;
+			}
+			if (!hibas)
+				System.out.println("Hiba nélkul futott le a teszteset, a kimenet megegyezik az elvárttal " + "(lsd. " + pathb + ")");
+			readera.close();
+			readerb.close();
+		}
+		catch (IOException ex)
+		{
+			//
+		}
+	
+	}
 
 	public void clearTest() {
 		workers.clear();
@@ -101,11 +152,6 @@ public class Tester {
 		fields.clear();
 	}
 	
-	/*public void initTest0() {
-		fieldMap = new FieldBase[5][5];
-		
-		for()
-	}*/
 	
 	public void initTest1(){
 		fieldMap = new FieldBase[1][2];
@@ -1058,6 +1104,9 @@ public class Tester {
 		b.setField(f2);
 	}
 	
+	/**
+	 * teszt betöltése
+	 */
 	private void loadtestCommand(String[] parts) {
 		clearTest();
 		int test = Integer.parseInt(parts[1]);
@@ -1148,7 +1197,10 @@ public class Tester {
 				break;	
 		}
 	}
-
+	
+	/**
+	 * "Kirajzolja" a raktárépületet
+	 */
 	private void showmazeCommand(PrintWriter printer) {
 		for(int i = 0; i < fieldMap.length; ++i) {
 			for(int j = 0; j < fieldMap[i].length; ++j) {
@@ -1170,6 +1222,9 @@ public class Tester {
 			printer.println("");
 	}
 
+	/**
+	 * Munkás mozgatása
+	 */
 	public void moveCommand(String[] parts) {
 		if (parts[1] == null) {
 			System.out.println("Hibas parancs.");
@@ -1200,6 +1255,9 @@ public class Tester {
 			
 	}
 	
+	/**
+	 * Méz vagy olaj lerakása
+	 */
 	public void putCommand(String[] parts) {
 		if (parts[1] == null) {
 			System.out.println("Hibas parancs.");
@@ -1226,6 +1284,10 @@ public class Tester {
 		}
 		
 	}
+	
+	/**
+	 * Állapot kiírása
+	 */
 	public void showstateCommand(String[] parts) {
 		if (parts[1] == null) {
 			System.out.println("Hibas parancs.");

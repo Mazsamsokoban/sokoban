@@ -1,4 +1,4 @@
-package sokoban;
+package models;
 
 import java.beans.XMLEncoder;
 import java.io.BufferedOutputStream;
@@ -19,96 +19,51 @@ import javax.xml.bind.Marshaller;
 
 
 
+/**
+ * A játékot irányító osztály
+ */
+
 public class Game {
-	//private ArrayList<Maze> maze;+
+	/**
+	 * A játékot tesztelõ osztály
+	 */
 	public Tester tester;
+	/**
+	 * A raktárépület
+	 */
 	private Maze currentLevel;
+	/**
+	 * A szkeletonhoz használt osztály (a prototípushoz most nem kell)
+	 */
 	static Outputter op = new Outputter();
 	
 	
 	public Game() {
 	}
 	
-	//elkezdi a játékot, létrehozza a raktárépületet
+	/**
+	 * Elkezdi a játékot, létrehozza a raktárépületet
+	 */
 	public void startGame() {
 		currentLevel = new Maze();
 		currentLevel.tester = tester;
 		currentLevel.setGame(this);
-		op.put(currentLevel, "m");
 		tester.m = currentLevel;
 		currentLevel.init();
-		op.returnfunc(this, new Object(){}.getClass().getEnclosingMethod().getName()+ "()");
 	}
 	
 	//befejezi a játékot, ha a feltételek teljesülnek
 	public void endGame() {
 	}
 	
-	//menürendszer kiírása és választás kezelése
-	public static void main(String[] args) throws IOException {
-		/*Switch sw = new Switch("sw");
-		Box box0 = new Box("box0");
-		Box box1 = new Box("box1");
-		Worker w1 = new Worker("w1");
-		w1.d = Direction.Right;
-		box0.d = Direction.Right;
-		box1.d = Direction.Up;
-		SwitchableHole sh = new SwitchableHole("sh");
-		sw.SetSh(sh);
-		Field f1 = new Field("f1");
-		Field f2 = new Field("f2");
-		Field f3 = new Field("f3");
-		sw.setNeighbor(Direction.Down, f1);
-		sw.setNeighbor(Direction.Up, f2);
-		sw.setNeighbor(Direction.Left, f3);
-		sw.setNeighbor(Direction.Right, sh);
-		sw.thing = w1;
-		f1.thing = box1;
-		sw.setFriction(Friction.Honey);
-		w1.setField(sw);
-		
-		box0.field = sh;
-		box1.field = f1;
-		sh.thing = box0;
-		
-		
-		box0.printState(System.out);
-		
-		System.out.println("\n\n");
-		try {
-		File file = new File("state.xml");
-		JAXBContext jaxbContext = JAXBContext.newInstance(Worker.class, Box.class, Switch.class, Field.class);
-		Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
-
-		// output pretty printed
-		jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-
-		//jaxbMarshaller.marshal(sw, file);
-		jaxbMarshaller.marshal(w1, System.out);
-		System.out.println("\n");
-		jaxbMarshaller.marshal(box0, System.out);
-		System.out.println("\n");
-		jaxbMarshaller.marshal(sh, System.out);
-		System.out.println("\n");
-		jaxbMarshaller.marshal(sw, System.out);
-		System.out.println("\n");
-		jaxbMarshaller.marshal(f1, System.out);
-		
-
-	     } catch (JAXBException e) {
-	    	  e.printStackTrace();
-	     }*/
-		
-		
-		
-		InputStreamReader isr = new InputStreamReader(System.in);
-		BufferedReader br = new BufferedReader(isr);
+	/**
+	 * A menürendszer kiírása és választás kezelése
+	 */
+	/*public static void main(String[] args) throws IOException {
 		String command;
 		
 		Scanner scanner = new Scanner(System.in);
 		Scanner fileScanner = null;
-		
-		
 		
 		System.out.println("KILLER SOKOBAN játék" + 
 						"\nMazsam csapat"
@@ -137,7 +92,7 @@ public class Game {
 		
 		if(choice.equals("file")) {
 			while(!exit) {
-				System.out.println("\nAdja meg a tesztfájl nevét! (test_x.txt)\n(Kilépés: exit)");
+				System.out.println("\nAdja meg a tesztfájl nevét! (test_x.txt) (Kilépés: exit)");
 				String fileName = scanner.nextLine();
 				if(fileName.equals("exit"))
 					exit = true;
@@ -148,12 +103,15 @@ public class Game {
 						System.out.println("A kiadott parancsok:");
 						String notxt = null;
 						while(fileScanner.hasNext()) {
-							String line = fileScanner.nextLine();
+							String line = fileScanner.nextLine();					//parancsok végrehajtása fájlból
 							System.out.println(line);
 							notxt = fileName.substring(0, fileName.length()-4);
 							exit = tester.processCommand(line, notxt);
 						}
-						System.out.println("A teszt kimenete a teszt_"+ notxt.split("_")[1]+ "_result.txt fájlban található.");
+						String outputFile = "test_" + notxt.split("_")[1] + "_result.txt";
+						System.out.println("A teszt kimenete a " + outputFile+ " fájlban található.");
+						String expectedFile = "test_" + notxt.split("_")[1] + "_expected.txt";
+						tester.compareWithExpected(outputFile, expectedFile);
 						
 					}
 					catch(FileNotFoundException e) {
@@ -163,7 +121,7 @@ public class Game {
 			}
 		}
 		else {
-			while(!exit) {
+			while(!exit) {					//parancsok végrehajtása standard inputról
 				
 				System.out.println("Adjon meg egy parancsot! (Kilépés: exit)");
 				
@@ -172,8 +130,8 @@ public class Game {
 				exit = tester.processCommand(command, null);
 			}
 		}
-		scanner.close();
-		fileScanner.close();
+		if (scanner !=null) scanner.close();
+		if (fileScanner!= null) fileScanner.close();
 		
-	}
+	}*/
 }

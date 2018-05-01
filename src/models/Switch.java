@@ -1,23 +1,26 @@
-package sokoban;
+package models;
 
-import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.io.Serializable;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.bind.annotation.XmlType;
+import views.FieldView;
 
-@XmlType(propOrder = { "name", "thing", "friction", "on", "swhole" })
-@XmlRootElement
+/**
+ * A kapcsolókat reprezentáló osztály
+ */
 public class Switch extends FieldBase{
-	@XmlAttribute
+	/**
+	 * Be van-e kapcsolva a kapcsoló
+	 */
 	private boolean on;
-	@XmlElement
+	
+	/**
+	 * A kapcsolóhoz tatozó csapóajtó
+	 */
 	private SwitchableHole swhole;
 	
+	/**
+	 * A kapcsolón lévõ doboz
+	 */
 	private Box box;
 	
 	
@@ -27,11 +30,20 @@ public class Switch extends FieldBase{
 	
 	public Switch() {
 	}
+	public Switch(FieldView _view) {
+		super(_view);
+	}
 	
+	/**
+	 * @return be van-e kapcsolva
+	 */
 	public boolean isOn() {
 		return on;
 	}
-	//fogadja a rá érkezõ dobozt, és állapotot vált
+	/**
+	 * Fogadja a rá érkezõ dobozt, és állapotot vált
+	 * @param b az érkezõ doboz
+	 */
 	public boolean Accept(Box b) {
 		if (thing != null)
 		{
@@ -43,14 +55,16 @@ public class Switch extends FieldBase{
 			}
 			else 
 				return false;
-			//return Accept(b);
 		}
 		box = b;
 		Change();
 		return true;
 	}
 	
-	//fogadja a rá érkezõ munkást
+	/**
+	 * Fogadja a rá érkezõ munkást
+	 * @param w az érkezõ munkás
+	 */
 	public boolean Accept(Worker w) {
 		if (thing != null)
 		{
@@ -64,33 +78,51 @@ public class Switch extends FieldBase{
 		return true;
 	}
 	
+	/**
+	 * Leveszi a mezõn lévõ dolgot
+	 */
 	public void Remove()
 	{	
-		if(box != null) {
+		if(box != null) {		//ha láda, akkor átkapcsol
 			box = null;
 			Change();
 		}
 		thing = null;
 	}
 	
-	//beállítja a hozzá tartozó csapóajtót
+	/**
+	 * Beállítja a hozzá tartozó csapóajtót
+	 * @param sh a csapóajtó
+	 */
 	public void SetSh(SwitchableHole sh) {
 		swhole = sh;
 	}
 	
-	//vált, és váltja a hozzá tartozó csapóajtót is
+	/**
+	 * Vált, és váltja a hozzá tartozó csapóajtót is
+	 */
 	public void Change() {
 		swhole.setOpen();
 		on = !on;
 	}
 	
+	/**
+	 * @return a rajta lévõ láda
+	 */
 	public Box getBox() {
 		return box;
 	}
 	
+	/**
+	 * Beállítja a rajta lévõ ládát
+	 */
 	public void setBox(Box b) {
 		box = b;
 	}
+	
+	/**
+	 * Kiírja a kapcsoló állapotát
+	 */
 	public void printState(PrintWriter w, boolean stdout) {
 		if(stdout)
 			System.out.println("name:"+ name + "\n"

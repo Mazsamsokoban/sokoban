@@ -1,19 +1,17 @@
-package sokoban;
+package models;
 
-import java.io.PrintStream;
 import java.io.PrintWriter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlType;
+import views.WorkerView;
 
-
-@XmlType(propOrder = { "name", "d", "field", "points" })
-@XmlRootElement
+/**
+ * A taktárépületben dolgozó munkások
+ */
 public class Worker extends Thing implements Steppable {
-	
-	
-	@XmlAttribute
+	private WorkerView view;
+	/**
+	 * A munkás pontjai
+	 */
 	private int points;
 	
 	
@@ -27,8 +25,17 @@ public class Worker extends Thing implements Steppable {
 		points = 0;
 		pushForce = 10;
 	}
+	public Worker(WorkerView _view) {
+		view = _view;
+		points = 0;
+		pushForce = 10;
+	}
 	
-	//a munkás a megadott irányban lévõ mezõre mozog
+	/**
+	 * a munkás a megadott irányban lévõ mezõre mozog
+	 * @param dir a mozgás iránya
+	 * @return sikerült-e a mozgás
+	 */
 	public boolean Move(Direction dir) {
 		FieldBase f1 = getField().getNeighbor(dir);
 		setDirection(dir);
@@ -42,22 +49,30 @@ public class Worker extends Thing implements Steppable {
 		return false;
 	}
 	
-	//a munkás p pontot kap
-	
+	/**
+	 * a munkás p pontot kap
+	 * @param p hány pontot
+	 */
 	public void AddPoints(long p) {
 		points += p;
 	}
 	
-	//a munkás ütközik a t dologgal
+	/**
+	 * a munkás ütközik a t dologgal
+	 */
 	public void CollideWith(Thing t) {
 		t.HitBy(this, getDirection(), this.getPushForce());
 	}
 	
-	//a munkásnak dir irányban nekimegy egy másik munkás
+	/**
+	 * a munkásnak dir irányban nekimegy egy másik munkás
+	 */
 	public void HitBy(Worker w, Direction dir, float force) {
 			
 	}
-	//a munkásnak dir irányban nekimegy egy doboz
+	/**
+	 * a munkásnak dir irányban nekimegy egy doboz
+	 */
 	public void HitBy(Box b, Direction dir, float force) {
 		float tempPushForce = this.getPushForce(); //amíg tolják, addig más a pushForce
 		this.setPushForce(force);  //ezzel az erõvel tol tovább
@@ -76,19 +91,26 @@ public class Worker extends Thing implements Steppable {
 		this.setPushForce(tempPushForce);  //tolás után visszaállítjuk
 	}
 	
+	/**
+	 * A munkás lerak valamit
+	 */
 	public void put(Friction f) {
 		this.getField().setFriction(f);
 	}
 	
-	//a munkás törlõdik a mezõjérõl
+	/**
+	 * a munkás törlõdik a mezõjérõl
+	 */
 	public void Delete() {
 		getField().setThing(null);
 		setField(null);
 	}
 	
-	// a munkás lép
+	/**
+	 * a munkás lép
+	 */
 	public void Step() {
-		// getteljuk az inputot, de ez meg nem kell (AFAIK)
+	
 	}
 
 	
@@ -97,6 +119,9 @@ public class Worker extends Thing implements Steppable {
 		return this;
 	}
 	
+	/**
+	 * Kiírja az állapotát
+	 */
 	public void printState(PrintWriter w, boolean stdout) {
 		if(stdout) {
 			System.out.println("name:"+ name + "\n"

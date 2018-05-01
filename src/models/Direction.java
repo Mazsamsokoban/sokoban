@@ -1,6 +1,8 @@
-package sokoban;
+package models;
 
-//az irányokat megadó enumeráció
+/**
+ * Az irányokat megadó enumeráció
+ */
 public enum Direction {
 	Up, Down, Left, Right, Neutral;
 }
