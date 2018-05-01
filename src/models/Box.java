@@ -33,7 +33,7 @@ public class Box extends Thing implements Serializable{
 	}
 	
 	public Box(BoxView _view) {
-		_view = view;
+		view = _view;
 	}
 	
 	/**
@@ -113,6 +113,7 @@ public class Box extends Thing implements Serializable{
 	public void Delete() {
 		getField().setThing(null);
 		setField(null);
+		view.disappear();
 	}
 	
 	/**
@@ -177,5 +178,13 @@ public class Box extends Thing implements Serializable{
 		owner = o;
 	}
 
+	@Override
+	public void update(int x, int y) {
+		view.updatePosition(x, y);
+	}
+	
+	public BoxView getView() {
+		return view;
+	}
 	
 }

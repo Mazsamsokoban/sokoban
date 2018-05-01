@@ -141,4 +141,9 @@ public class Switch extends FieldBase{
 					+ "box:" + box + "\r\n"
 					);
 	}
+
+	@Override
+	public void update() {
+		
+	}
 }

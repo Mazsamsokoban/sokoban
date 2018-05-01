@@ -45,6 +45,7 @@ public abstract class FieldBase{
 	 */
 	public void setThing(Thing t) {
 		thing = t;
+		t.setField(this);
 	}
 	
 	/**
@@ -113,4 +114,10 @@ public abstract class FieldBase{
 	public String toString() {
 		return name;
 	}
+
+	public FieldView getView() {
+		return view;
+	}
+	
+	public abstract void update();
 }

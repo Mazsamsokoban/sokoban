@@ -5,9 +5,9 @@ import java.util.ArrayList;
 /**
  * Az ütemezést segítõ idõzítõ
  */
-public class Timer extends ArrayList<Steppable> {
+public class GameTimer extends ArrayList<Steppable> {
 	
-	public Timer() {
+	public GameTimer() {
 
 	}
 	/**

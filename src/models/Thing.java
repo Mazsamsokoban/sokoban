@@ -85,4 +85,8 @@ public abstract class Thing{
 	public String toString() {
 		return name;
 	}
+	
+	public abstract void update(int x, int y);
+	
+	
 }

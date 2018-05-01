@@ -6,7 +6,7 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.geom.Ellipse2D;
 
-public class WorkerView extends ViewBase{
+public class WorkerView extends MovingObjectView{
 	Color color;
 	public WorkerView(int _x, int _y, Color c) {
 		super(_x, _y);
@@ -31,4 +31,6 @@ public class WorkerView extends ViewBase{
 		g2d.fill(head);
 		revalidate();
 	}
+	
+	
 }
