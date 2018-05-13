@@ -11,6 +11,8 @@ import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
+import models.Friction;
+
 public abstract class ViewBase extends JComponent{
 	public int x;
 	public int y;
@@ -24,6 +26,11 @@ public abstract class ViewBase extends JComponent{
 	public Dimension getPos() {
 		return new Dimension(x,y);
 	}
+	
+	public void setPos(Dimension pos) {
+		x = pos.width;
+		y = pos.height;
+	}
 	@Override
 	protected void paintComponent(Graphics g) {
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -31,6 +38,7 @@ public abstract class ViewBase extends JComponent{
 		super.paintComponent(g);
 		
 	}
+
 	
 	
 }

@@ -6,8 +6,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.image.BufferedImage;
@@ -18,6 +21,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 import controllers.GameController;
 import models.Direction;
@@ -33,67 +37,89 @@ import views.WorkerView;
 
 public class GameWindow extends JFrame {
 	private Maze currentLevel;
-	Worker player1;
-	Worker player2;
-	WorkerView w;
+	private MenuPanel menuPanel;
+	private GamePanel gamePanel;
+	private EndPanel endPanel;
+	
+	
 	
 	public GameWindow() {
 		super("Sokoban");
 		setDefaultLookAndFeelDecorated(true);
-		setExtendedState(GameWindow.MAXIMIZED_BOTH); 
-		//setSize(600,400);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+		setVisible(true);
+		setResizable(false);
+		initMenu();
+		
+	}
+	
+	public void initMenu() {
+		try {
+			menuPanel = new MenuPanel(this);
+			add(menuPanel);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		setVisible(true);
+		repaint();
+		invalidate();
+	}
+	/**
+	 * Elkezdi a játékot, létrehozza a raktárépületet
+	 */
+	public void startGame() {
+		remove(menuPanel);
 		initComponents();
 	}
 	
+	//befejezi a játékot, ha a feltételek teljesülnek
+	public void endGame() {
+		remove(gamePanel);
+		if(getWorker1().getField() == null) {		//meghalt
+			endPanel = new EndPanel(2);
+			add(endPanel);
+		}
+		else if(getWorker2().getField() == null) {		//meghalt
+			endPanel = new EndPanel(1);
+			add(endPanel);
+		}
+		else if(getWorker1().getPoints() > getWorker2().getPoints()) {
+			endPanel = new EndPanel(1);
+			add(endPanel);
+		}	
+		else if(getWorker1().getPoints() < getWorker2().getPoints()) {
+			endPanel = new EndPanel(2);
+			add(endPanel);
+		}
+		else {
+			endPanel = new EndPanel(0);
+			add(endPanel);
+		}
+		
+		Timer t = new Timer(3000, new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				remove(endPanel);
+				initMenu();
+		    }
+		});
+		t.setRepeats(false);
+		t.start();
+		
+	}
+	
 	private void initComponents() {
-		//this.setLayout(new BorderLayout());
-		player1 = new Worker();
-		player2 = new Worker();
-		JPanel panel = new JPanel(null);
-		currentLevel = new Maze(panel);
-		/*try {
-			panel.add(w = new WorkerView(400, 500, new Color(244, 178, 26)));
-			panel.add(w = new WorkerView(200, 200, Color.CYAN));
-			panel.add(new BoxView(300, 200, ImageIO.read(new File("box.png"))));
-			panel.add(new BoxView(100, 500, ImageIO.read(new File("cyanbox.png"))));
-			panel.add(new BoxView(300, 500, ImageIO.read(new File("yellowbox.png"))));
-			panel.add(new BoxView(300, 200, ImageIO.read(new File("box.png"))));
-			panel.add(new FieldView(100, 100, ImageIO.read(new File("hole.png"))));
-			panel.add(new FieldView(500, 100, ImageIO.read(new File("boxfield.png"))));
-			panel.add(new FieldView(500, 400, ImageIO.read(new File("wall.png"))));
-			panel.add(new FieldView(100, 300, ImageIO.read(new File("wall.png"))));
-			panel.add(new FieldView(200, 300, ImageIO.read(new File("wall.png"))));
-			panel.add(new FieldView(400, 400, ImageIO.read(new File("wall.png"))));
-			
-			for(int i = 100; i<=500; i+=100) {
-				for(int j = 100; j<=500; j+=100) {
-					panel.add(new FieldView(i, j, ImageIO.read(new File("floor.png"))));
-				}
-			}
-			for(int i = 0; i <= 600; i+=100) {
-				panel.add(new FieldView(i, 0, ImageIO.read(new File("wall.png"))));
-				panel.add(new FieldView(0, i, ImageIO.read(new File("wall.png"))));
-				panel.add(new FieldView(600, i, ImageIO.read(new File("wall.png"))));
-				panel.add(new FieldView(i, 600, ImageIO.read(new File("wall.png"))));
-			}
-			
-			
-				
-			
-			//sw = new SwitchableHoleView(700, 700, ImageIO.read(new File("box.png")), ImageIO.read(new File("")));
-		} catch (IOException e) {
-			System.out.println("Nem sikerült beolvasni egy képet!");
-		}*/
 		
+		gamePanel = new GamePanel(null, this);
+		currentLevel = new Maze(gamePanel);
 		
-		
-		Component[] comp = panel.getComponents();
+		Component[] comp = gamePanel.getComponents();
 		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 		for(Component c : comp) {
 			c.setBounds(0, 0, (int)screenSize.getWidth(), (int)screenSize.getHeight());
 		}
 		
-		this.add(panel);
+		this.add(gamePanel);
 		
 		addWindowListener(new WindowAdapter() {
 	         public void windowClosing(WindowEvent windowEvent){
@@ -101,46 +127,25 @@ public class GameWindow extends JFrame {
 		      }        
 		 });    
 		setVisible(true);
+		gamePanel.addKeyListener(new GameController(this, currentLevel.getWorkers().get(1), currentLevel.getWorkers().get(0)));
+		gamePanel.requestFocusInWindow();
 	}
 	
-	public void movePlayer(int playerNumber, Direction direction) {
-		switch (direction) {
-			case Up:
-				w.y -= 100;
-				break;
-			case Down:
-				w.y += 100;
-				break;
-			case Left:
-				w.x -= 100;
-				break;
-			case Right:
-				w.x += 100;
-				break;
-		}
-		repaint();
-		/*if(playerNumber == 1) {
-			player1.Move(direction);
-			
-		}
-		else if(playerNumber == 2) {
-			player2.Move(direction);
-		}*/
-	}
+	
+	
 	public static void main(String[] args) throws IOException {
 		GameWindow window = new GameWindow();
-		window.addKeyListener(new GameController(window, window.getWorker1(), window.getWorker2()));
 		window.setVisible(true);
 		window.repaint();
 		window.revalidate();
 	}
 
-	private Worker getWorker1() {
-		return currentLevel.worker1;
+	public Worker getWorker1() {
+		return currentLevel.getWorkers().get(1);
 	}
 
-	private Worker getWorker2() {
-		return currentLevel.worker2;
+	public Worker getWorker2() {
+		return currentLevel.getWorkers().get(0);
 	}
 
 	

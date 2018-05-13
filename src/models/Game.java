@@ -47,9 +47,9 @@ public class Game {
 	public void startGame() {
 		//currentLevel = new Maze();
 		//currentLevel.tester = tester;
-		currentLevel.setGame(this);
+		/*currentLevel.setGame(this);
 		tester.m = currentLevel;
-		currentLevel.init();
+		currentLevel.init();*/
 	}
 	
 	//befejezi a játékot, ha a feltételek teljesülnek

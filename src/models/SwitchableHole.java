@@ -42,8 +42,11 @@ public class SwitchableHole extends Hole {
 		
 		if (open)
 		{
-			if(thing != null) 
+			if(thing != null) {
+				System.out.println("nem üres");
 				thing.Delete();
+				System.out.println("leesett");
+			}
 		}
 	}
 	
@@ -60,6 +63,7 @@ public class SwitchableHole extends Hole {
 	 */
 	public boolean Accept(Box b) {
 		if (open) {
+			System.out.println("nyitva");
 			return super.Accept(b);
 		}
 		else
@@ -67,7 +71,7 @@ public class SwitchableHole extends Hole {
 			if (thing != null)
 			{
 				b.CollideWith(thing);
-				return Accept(b);
+				return Accept(b);		//újra megpróbáljuk
 			}
 			return true;
 		}			
@@ -85,7 +89,7 @@ public class SwitchableHole extends Hole {
 			if (thing != null)
 			{
 				w.CollideWith(thing);
-				return Accept(w);
+				return Accept(w);		//újra megpróbáljuk
 			}
 			return true;
 		}		
@@ -108,5 +112,12 @@ public class SwitchableHole extends Hole {
 					+ "thing:" + thing + "\r\n"
 					+ "open:" + open + "\r\n"
 					);
+	}
+	
+	public void update() {
+		//if(thing != null) thing.printState(null, true); else System.out.println("null");
+		getView().updateField(open, getFriction());
+		if(thing!=null)
+			thing.update(getView());
 	}
 }

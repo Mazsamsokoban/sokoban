@@ -50,6 +50,6 @@ public class Hole extends FieldBase {
 
 	@Override
 	public void update() {
-		
+		;
 	}
 }

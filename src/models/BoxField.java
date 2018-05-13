@@ -3,6 +3,8 @@ package models;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 
+import views.FieldView;
+
 /**
  * Kijelölt helyet reprezentáló osztály
  */
@@ -23,6 +25,10 @@ public class BoxField extends Field {
 	
 	public BoxField(String n){
 		name = n;
+	}
+	
+	public BoxField(FieldView _view) {
+		super(_view);
 	}
 	/**
 	 * Beállítja a betolót
@@ -80,6 +86,7 @@ public class BoxField extends Field {
 			Worker o = box.getOwner();
 			if(pusher == o)					//pontlevonás, mert a korábban betoló tolta le
 				pusher.AddPoints(-1);
+			box.setOnBoxField();
 			box = null;
 		}
 		thing = null;
@@ -117,5 +124,11 @@ public class BoxField extends Field {
 					+ "thing:" + thing + "\r\n"
 					+ "box:" + box + "\r\n"
 					);
+	}
+	
+	public void update() {
+		getView().updateField(false, getFriction());
+		if(thing!=null) 
+			thing.update(getView());
 	}
 }
