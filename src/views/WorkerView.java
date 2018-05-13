@@ -18,12 +18,12 @@ public class WorkerView extends MovingObjectView{
 	{
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;
-		int r = mezomeret* 1/3;
-		int R = mezomeret* 2/3;
+		int r = mezomeret * 3/5;
+		int R = mezomeret;
 		Ellipse2D.Double body =
-				  new Ellipse2D.Double(x+r/2, y+r/2, R, R);
+				  new Ellipse2D.Double(x, y, R, R);
 		Ellipse2D.Double head =
-				  new Ellipse2D.Double(x+r, y+r, r, r);
+				  new Ellipse2D.Double(x+r/3, y+r/3, r, r);
 		
 		g2d.setPaint(color);
 		g2d.fill(body);

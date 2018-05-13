@@ -4,6 +4,7 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 
 import views.BoxView;
+import views.ViewBase;
 
 /**
  * A ládákat reprezentáló osztály
@@ -73,9 +74,10 @@ public class Box extends Thing implements Serializable{
 		
 		setDirection(dir);
 		this.pusher = b.getPusher();
-		FieldBase f = getField().getNeighbor(dir);
 		FieldBase old = getField();
-		if (f.Accept(this))
+		FieldBase f = old.getNeighbor(dir);
+		
+		if (f.Accept(this) && this.getField() != null)
 		{
 			old.Remove();
 			f.setThing(this);
@@ -97,9 +99,10 @@ public class Box extends Thing implements Serializable{
 		
 		setDirection(dir);
 		this.pusher = w;
-		FieldBase f = getField().getNeighbor(dir);
 		FieldBase old = getField();
-		if (f.Accept(this))								//ha elfogadta, akkor leveszi magát
+		FieldBase f = old.getNeighbor(dir);
+		
+		if (f.Accept(this) && this.getField() != null)								//ha elfogadta, akkor leveszi magát
 		{
 			old.Remove();
 			f.setThing(this);
@@ -111,8 +114,10 @@ public class Box extends Thing implements Serializable{
 	 * Törlõdik a mezõjérõl
 	 */
 	public void Delete() {
-		getField().setThing(null);
+		getField().Remove();
 		setField(null);
+		if(onBoxField)
+			onBoxField = false;
 		view.disappear();
 	}
 	
@@ -179,8 +184,9 @@ public class Box extends Thing implements Serializable{
 	}
 
 	@Override
-	public void update(int x, int y) {
-		view.updatePosition(x, y);
+	public void update(ViewBase fieldView) {
+		view.updatePosition(fieldView);
+		if(owner != null) view.setColor(owner.getId());
 	}
 	
 	public BoxView getView() {

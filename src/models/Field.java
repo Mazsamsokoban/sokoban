@@ -73,7 +73,7 @@ public class Field extends FieldBase  {
 	}
 	
 	public void update() {
-		Dimension pos = getView().getPos();
-		if(thing!=null)thing.update(pos.width, pos.height);
+		getView().updateField(false, getFriction());
+		if(thing!=null)thing.update(getView());
 	}
 }

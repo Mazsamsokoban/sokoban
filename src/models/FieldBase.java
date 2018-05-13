@@ -45,7 +45,7 @@ public abstract class FieldBase{
 	 */
 	public void setThing(Thing t) {
 		thing = t;
-		t.setField(this);
+		if(t != null) t.setField(this);  //ha nem üresre állítjuk
 	}
 	
 	/**

@@ -7,15 +7,17 @@ public class MovingObjectView extends ViewBase {
 	
 	}
 	
-	public void updatePosition(int _x, int _y) {
-		x = _x;
-		y = _y;
+	public void updatePosition(ViewBase fieldView) {
+		setPos(fieldView.getPos());
 		repaint();
 		revalidate();
 	}
 	
 	public void disappear() {
 		this.getParent().remove(this);
+		repaint();
+		revalidate();
 	}
-
+	
+	
 }

@@ -46,7 +46,6 @@ public class Obstacle extends FieldBase {
 	}
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-		
+		;
 	}
 }

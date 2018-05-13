@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 
 import components.GameWindow;
 import models.Direction;
+import models.Friction;
 import models.Worker;
 
 public class GameController extends KeyAdapter{
@@ -22,7 +23,6 @@ public class GameController extends KeyAdapter{
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
-		
 		switch(e.getKeyCode()){
 			case KeyEvent.VK_UP:
 				worker1.Move(Direction.Up);
@@ -36,40 +36,39 @@ public class GameController extends KeyAdapter{
 			case KeyEvent.VK_RIGHT:
 				worker1.Move(Direction.Right);
 				break;
-			case 'w':
-				window.movePlayer(1, Direction.Up);
+			case KeyEvent.VK_J:
+				worker1.put(Friction.Normal);
+				break;
+			case KeyEvent.VK_K:
+				worker1.put(Friction.Honey);
+				break;
+			case KeyEvent.VK_L:
+				worker1.put(Friction.Oil);
+				break;
+			
+			case KeyEvent.VK_W:	
+				worker2.Move(Direction.Up);
+				break;
+			case KeyEvent.VK_A:	
+				worker2.Move(Direction.Left);
+				break;
+			case KeyEvent.VK_S:	
+				worker2.Move(Direction.Down);
+				break;
+			case KeyEvent.VK_D:	
+				worker2.Move(Direction.Right);
+				break;
+			case KeyEvent.VK_X:
+				worker2.put(Friction.Normal);
+				break;
+			case KeyEvent.VK_C:
+				worker2.put(Friction.Honey);
+				break;
+			case KeyEvent.VK_V:
+				worker2.put(Friction.Oil);
 				break;
 			default:
 				break;
 		}
     }
-		
-
-	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		;
-	}
-
-	@Override
-	public void keyTyped(KeyEvent e) {
-		switch(e.getKeyChar()) {
-			case 'w':
-				
-				break;
-			case 'a':
-				
-				break;
-			case 's':
-				
-				break;
-			case 'd':
-				
-				break;
-			default: ;
-				break;
-		}
-		
-	}
-
 }

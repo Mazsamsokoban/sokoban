@@ -1,5 +1,6 @@
 package models;
 
+import java.awt.Dimension;
 import java.io.PrintWriter;
 
 import views.FieldView;
@@ -49,7 +50,7 @@ public class Switch extends FieldBase{
 		{
 			b.CollideWith(thing);
 			if(thing == null) {
-				Change();
+				if(!on) Change();  //csak akkor váltunk, ha nincs bekapcsolva
 				box = b;
 				return true;
 			}
@@ -144,6 +145,8 @@ public class Switch extends FieldBase{
 
 	@Override
 	public void update() {
-		
+		getView().updateField(on, getFriction());
+		if(thing!=null) 
+			thing.update(getView());
 	}
 }

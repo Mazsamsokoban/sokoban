@@ -2,6 +2,8 @@ package models;
 
 import java.io.PrintWriter;
 
+import views.ViewBase;
+
 /**
  * A mezõkön lévõ dolgok õse
  */
@@ -86,7 +88,7 @@ public abstract class Thing{
 		return name;
 	}
 	
-	public abstract void update(int x, int y);
+	public abstract void update(ViewBase fieldView);
 	
 	
 }

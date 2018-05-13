@@ -3,17 +3,20 @@ package models;
 import java.awt.Component;
 import java.io.PrintWriter;
 
+import views.ViewBase;
 import views.WorkerView;
 
 /**
  * A taktárépületben dolgozó munkások
  */
-public class Worker extends Thing implements Steppable {
+public class Worker extends Thing  {
 	private WorkerView view;
 	/**
 	 * A munkás pontjai
 	 */
 	private int points;
+	private static int number = 1;
+	private int id;
 	
 	
 	public Worker(String n, float pf) {
@@ -30,6 +33,15 @@ public class Worker extends Thing implements Steppable {
 		view = _view;
 		points = 0;
 		pushForce = 10;
+		id = number++;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public int getPoints() {
+		return points;
 	}
 	
 	/**
@@ -38,16 +50,21 @@ public class Worker extends Thing implements Steppable {
 	 * @return sikerült-e a mozgás
 	 */
 	public boolean Move(Direction dir) {
-		FieldBase f1 = getField().getNeighbor(dir);
-		setDirection(dir);
 		FieldBase old = getField();
-		if (f1.Accept(this))
+		if(old == null)
+			return false;
+		FieldBase f1 = old.getNeighbor(dir);
+		if(f1 == null)
+			return false;
+		setDirection(dir);
+		
+		if (f1.Accept(this) && this.getField() != null)
 		{
 			old.Remove();
 			f1.setThing(this);
 			this.setField(f1);
 		}
-		return false;
+		return true;
 	}
 	
 	/**
@@ -84,7 +101,7 @@ public class Worker extends Thing implements Steppable {
 		if (!isAccepted && f.getThing() == null) {		//Obstaclenek toltuk, ezért a munkás meghal
 			this.Delete();
 		}
-		else if(isAccepted) {
+		else if(isAccepted && this.getField() != null) {
 			old.Remove();
 			f.setThing(this);
 			this.setField(f);
@@ -103,18 +120,11 @@ public class Worker extends Thing implements Steppable {
 	 * a munkás törlõdik a mezõjérõl
 	 */
 	public void Delete() {
-		getField().setThing(null);
+		getField().Remove();
 		setField(null);
 		view.disappear();
 	}
 	
-	/**
-	 * a munkás lép
-	 */
-	public void Step() {
-	
-	}
-
 	
 	@Override
 	Worker Notify() {
@@ -143,8 +153,8 @@ public class Worker extends Thing implements Steppable {
 	}
 
 	@Override
-	public void update(int x, int y) {
-		view.updatePosition(x, y);
+	public void update(ViewBase fieldView) {
+		view.updatePosition(fieldView);
 	}
 
 	public WorkerView getView() {
