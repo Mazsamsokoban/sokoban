@@ -11,6 +11,7 @@ public class BoxView extends MovingObjectView {
 	private ImageIcon worker1Img;
 	private ImageIcon worker2Img;
 	
+	
 	public BoxView(int _x, int _y, Image _img, Image w1Img, Image w2Img) {
 		super(_x, _y);
 		if(_img != null)
@@ -26,6 +27,7 @@ public class BoxView extends MovingObjectView {
 		super.paintComponent(g);
 		img.paintIcon(this, g, x, y);
 	}
+	
 	
 	public void setColor(int i) {
 		switch (i) {

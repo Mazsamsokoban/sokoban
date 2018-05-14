@@ -114,8 +114,10 @@ public class SwitchableHole extends Hole {
 					);
 	}
 	
+	/**
+	 * frissíti a csapóajtó állapotát
+	 */
 	public void update() {
-		//if(thing != null) thing.printState(null, true); else System.out.println("null");
 		getView().updateField(open, getFriction());
 		if(thing!=null)
 			thing.update(getView());

@@ -49,9 +49,10 @@ public class Maze {
 	 * Inicializál egy pályát
 	 */
 	public void init() {
-		//inicializálás soronként
+		
 		BufferedImage floorImg = null;
 		BufferedImage wallImg = null;
+		BufferedImage columnImg = null;
 		BufferedImage holeImg = null;
 		BufferedImage switchImg = null;
 		BufferedImage boxImg = null;
@@ -63,6 +64,7 @@ public class Maze {
 		try {
 			floorImg = ImageIO.read(new File("floor.png"));
 			wallImg = ImageIO.read(new File("wall.png"));
+			columnImg = ImageIO.read(new File("column.png"));
 			holeImg = ImageIO.read(new File("hole.png"));
 			switchImg = ImageIO.read(new File("button.png"));
 			boxImg = ImageIO.read(new File("box.png"));
@@ -76,6 +78,7 @@ public class Maze {
 			e1.printStackTrace();
 		}
 		
+		//inicializálás soronként
 		SwitchableHole shole;
 		Switch sw;
 		/*1.sor*/
@@ -104,7 +107,7 @@ public class Maze {
 		fields.add(new Obstacle(new FieldView(0, 300, wallImg)));
 		fields.add(new Field(new FieldView(100,300, floorImg)));
 		fields.add(new Field(new FieldView(200,300, floorImg)));
-		fields.add(new Obstacle(new FieldView(300, 300, wallImg)));
+		fields.add(new Obstacle(new FieldView(300, 300, columnImg)));
 		fields.add(new Field(new FieldView(400, 300, floorImg)));
 		fields.add(shole = new SwitchableHole(new ChangingFieldView(500, 300, floorImg, holeImg)));
 		fields.add(new Field(new FieldView(600,300, floorImg)));
@@ -181,7 +184,9 @@ public class Maze {
 		timer.start();
 	}
 	
-	
+	/**
+	 * megjeleníti a pályát
+	 */
 	private void showMaze() {
 		for(Worker w : workers)
 			gamePanel.add(w.getView());

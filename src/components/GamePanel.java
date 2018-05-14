@@ -11,15 +11,19 @@ import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 public class GamePanel extends JPanel{
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	/**
+	 * A tartalmazó ablak
+	 */
 	private GameWindow window;
+	/**
+	 * Megnyomták-e az End game gombot
+	 */
 	private boolean isEnded = false;
 	public GamePanel(LayoutManager m, GameWindow w) {
 		super(m);
 		window = w;
+		//téglalapra kattintás érzékelése
 		addMouseListener(new MouseAdapter() {
 
 			public void mouseClicked(MouseEvent e) {
@@ -31,13 +35,25 @@ public class GamePanel extends JPanel{
 		});
 	}
 	
+	/**
+	 * Rákattintottak-e a téglalapra 
+	 * @return isEnded értéke
+	 */
 	public boolean isEnded() {
 		return isEnded;
 	}
+	
+	/**
+	 * Játék befejezése
+	 */
 	public void endGame() {
 		isEnded = true;
 		window.endGame();
 	}
+	
+	/**
+	 * Pontok és End game téglalap kirajzolása
+	 */
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);

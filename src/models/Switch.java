@@ -143,6 +143,9 @@ public class Switch extends FieldBase{
 					);
 	}
 
+	/**
+	 * frissíti a kapcsoló állapotát
+	 */
 	@Override
 	public void update() {
 		getView().updateField(on, getFriction());

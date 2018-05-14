@@ -114,7 +114,11 @@ public abstract class FieldBase{
 	public String toString() {
 		return name;
 	}
-
+	
+	/**
+	 * 
+	 * @return a mezõ view-ja
+	 */
 	public FieldView getView() {
 		return view;
 	}
