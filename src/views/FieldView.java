@@ -37,6 +37,9 @@ public class FieldView extends ViewBase{
 		revalidate();
 	}
 	
+	/**
+	 * frissít
+	 */
 	public void updateField(boolean on, Friction friction) {
 		if(friction == null || materialFriction == friction) return;
 		switch (friction) {

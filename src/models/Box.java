@@ -183,12 +183,20 @@ public class Box extends Thing implements Serializable{
 		owner = o;
 	}
 
+	/**
+	 * frissíti a view-t
+	 * @param fieldView a mezõ view-ja, amin áll
+	 */
 	@Override
 	public void update(ViewBase fieldView) {
 		view.updatePosition(fieldView);
 		if(owner != null) view.setColor(owner.getId());
 	}
 	
+	/**
+	 * 
+	 * @return a láda view-ja
+	 */
 	public BoxView getView() {
 		return view;
 	}

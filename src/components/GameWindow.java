@@ -1,44 +1,41 @@
 package components;
 
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.Timer;
 
 import controllers.GameController;
-import models.Direction;
 import models.Maze;
 import models.Worker;
-import views.BoxView;
-import views.ChangingFieldView;
-import views.FieldView;
-import views.ViewBase;
-import views.WorkerView;
 
 
 
 public class GameWindow extends JFrame {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * a raktárépület
+	 */
 	private Maze currentLevel;
+	/**
+	 * a menüt tartalmazó panel
+	 */
 	private MenuPanel menuPanel;
+	/**
+	 * a játékot tartalmazó panel
+	 */
 	private GamePanel gamePanel;
+	/**
+	 * A játék végét jelzõ panel
+	 */
 	private EndPanel endPanel;
 	
 	
@@ -53,6 +50,9 @@ public class GameWindow extends JFrame {
 		
 	}
 	
+	/**
+	 * Menü létrehozása és megjelenítése
+	 */
 	public void initMenu() {
 		try {
 			menuPanel = new MenuPanel(this);
@@ -73,7 +73,9 @@ public class GameWindow extends JFrame {
 		initComponents();
 	}
 	
-	//befejezi a játékot, ha a feltételek teljesülnek
+	/**
+	 * befejezi a játékot, ha a feltételek teljesülnek, kirajzol egy EndPanelt
+	 */
 	public void endGame() {
 		remove(gamePanel);
 		if(getWorker1().getField() == null) {		//meghalt
@@ -97,6 +99,7 @@ public class GameWindow extends JFrame {
 			add(endPanel);
 		}
 		
+		// 3 mp után visszalép a fõmenübe
 		Timer t = new Timer(3000, new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				remove(endPanel);
@@ -108,6 +111,9 @@ public class GameWindow extends JFrame {
 		
 	}
 	
+	/**
+	 * Játék létrehozása és gombkezelõ hozzáadása
+	 */
 	private void initComponents() {
 		
 		gamePanel = new GamePanel(null, this);
@@ -140,10 +146,18 @@ public class GameWindow extends JFrame {
 		window.revalidate();
 	}
 
+	/**
+	 * 
+	 * @return az 1-es munkás
+	 */
 	public Worker getWorker1() {
 		return currentLevel.getWorkers().get(1);
 	}
-
+	
+	/**
+	 * 
+	 * @return a 2-es munkás
+	 */
 	public Worker getWorker2() {
 		return currentLevel.getWorkers().get(0);
 	}

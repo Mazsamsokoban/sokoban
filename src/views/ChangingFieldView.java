@@ -24,6 +24,9 @@ public class ChangingFieldView extends FieldView{
 		revalidate();
 	}
 	
+	/**
+	 * frissít
+	 */
 	@Override
 	public void updateField(boolean on, Friction friction) {
 		super.updateField(on, friction);

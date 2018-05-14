@@ -13,7 +13,13 @@ import models.Worker;
 
 public class GameController extends KeyAdapter{
 	GameWindow window;
+	/**
+	 * 1-es munkás
+	 */
 	Worker worker1;
+	/**
+	 * 2-es munkás
+	 */
 	Worker worker2;
 	
 	public GameController(GameWindow w, Worker w1, Worker w2){
@@ -21,6 +27,10 @@ public class GameController extends KeyAdapter{
 		worker1 = w1;
 		worker2 = w2;
 	}
+	
+	/**
+	 * gombnyomás kezelése: munkás mozgatása vagy anyag lerakása
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch(e.getKeyCode()){

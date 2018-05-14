@@ -4,13 +4,24 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
-
+/**
+ * A végeredményt megjelenítõ panel.
+ *
+ */
 public class EndPanel extends JPanel {
+	private static final long serialVersionUID = 1L;
+	/**
+	 * A gyõztes sorszáma, 0 esetén döntetlen
+	 */
 	private int winner;
 	
 	public EndPanel(int w) {
 		winner = w;
 	}
+	
+	/**
+	 * Gyõztes/döntetlen kiírása
+	 */
 	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);

@@ -28,11 +28,23 @@ import javax.swing.JPanel;
 public class MenuPanel extends JPanel{
 	
 	private static final long serialVersionUID = 1L;
-
+	
+	/**
+	 * a fõablak
+	 */
 	private GameWindow window;
 	
+	/**
+	 * új játékot kezdõ gomb
+	 */
 	private JButton newGameButton;
+	/**
+	 * kilépés gombja
+	 */
 	private JButton exitButton;
+	/**
+	 * háttérkép
+	 */
 	transient private BufferedImage backGroundImage;
 	
 	

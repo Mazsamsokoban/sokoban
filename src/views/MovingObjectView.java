@@ -7,6 +7,9 @@ public class MovingObjectView extends ViewBase {
 	
 	}
 	
+	/**
+	 * frissít
+	 */
 	public void updatePosition(ViewBase fieldView) {
 		setPos(fieldView.getPos());
 		repaint();

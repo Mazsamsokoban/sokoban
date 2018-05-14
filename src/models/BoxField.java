@@ -126,6 +126,9 @@ public class BoxField extends Field {
 					);
 	}
 	
+	/**
+	 * frissíti a rajta lévõ dolgot és magát
+	 */
 	public void update() {
 		getView().updateField(false, getFriction());
 		if(thing!=null) 

@@ -72,6 +72,9 @@ public class Field extends FieldBase  {
 					);
 	}
 	
+	/**
+	 * frissíti a rajta lévõ dolgot és magát
+	 */
 	public void update() {
 		getView().updateField(false, getFriction());
 		if(thing!=null)thing.update(getView());
